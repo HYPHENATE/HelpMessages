@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Records_Valid_For__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This confirms if filters are being applied to this help message, if you select all then it will appear at all time on the record</inlineHelpText>
+    <label>Records Valid For</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All</fullName>
+                <default>false</default>
+                <label>All</label>
+            </value>
+            <value>
+                <fullName>By Filter</fullName>
+                <default>false</default>
+                <label>By Filter</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

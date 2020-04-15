@@ -37,8 +37,8 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 ## Part 3: Limitations
 
 ### Filters
-Support for AND and OR in your filters
-Support for only String comparisons Equals or not equals
+- Support for AND and OR in your filters
+- Support for only String comparisons Equals or not equals
 
 ## TODO
 - Implement security permission checking

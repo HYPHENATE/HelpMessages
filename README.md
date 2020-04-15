@@ -47,6 +47,8 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 - Implement validation checks against the field / object API Names provided
 - Implement new UI for creation of messages and filters
 - Implement pencil on record message to allow Editors quick access to edit / amend a message from the record
+- Make editor checking more dynamic and configurable
+- Make record message statuses more dynamic and configurable
 
 ## Credits
 

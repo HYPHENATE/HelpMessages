@@ -18,7 +18,7 @@ public with sharing class HelpMessageController {
     /**
      * @description     simple help to confirm what statuses we should be looking for based on the current user access the help messages
      * @param           string userId
-     * @retern          List<String> listofstatuses
+     * @return          List<String> listofstatuses
     */
     public static List<String> getStatusList(string userId){
         List<String> returnlist;

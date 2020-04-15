@@ -47,3 +47,8 @@ Support for only String comparisons Equals or not equals
 - Implement validation checks against the field / object API Names provided
 - Implement new UI for creation of messages and filters
 - Implement pencil on record message to allow Editors quick access to edit / amend a message from the record
+
+## Credits
+
+Dan Croft - for the initial build
+National Lottery Community Fund - for the project that this idea came from

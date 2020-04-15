@@ -52,5 +52,5 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 
 ## Credits
 
-Dan Croft - for the initial build
-National Lottery Community Fund - for the project that this idea came from
+- Dan Croft - for the initial build
+- National Lottery Community Fund - for the project that this idea came from

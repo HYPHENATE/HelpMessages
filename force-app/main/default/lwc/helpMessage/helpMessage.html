@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="Help Messages">
+        <div slot="actions">
+            <lightning-button-icon icon-name="action:refresh"  alternative-text="Refresh" onclick={handleRefresh} class="slds-m-left_x-small"></lightning-button-icon>
+        </div>
+        <div class="slds-card__body slds-card__body_inner" style="overflow:auto">
+            <template if:true={messages}>    
+                <lightning-accordion if:true={hasAnyMessageResults} allow-multiple-sections-open>
+                    <template for:each={messages} for:item="message">
+                        <lightning-accordion-section key={message.Id} name={message.Id} label={message.gf8__Message_Title__c}>
+                            <template if:true={message.gf8__Is_Draft__c}>
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_medium" role="alert">
+                                    <h2>{label.DraftTextMessage}</h2>
+                                </div>
+                            </template>
+                            <lightning-formatted-rich-text value={message.gf8__Message__c}></lightning-formatted-rich-text>
+                        </lightning-accordion-section>                                
+                    </template>
+                </lightning-accordion>
+                <p if:false={hasAnyMessageResults}>{label.NoHelpAvailable}</p>
+            </template>
+            <template if:true={errors}>
+                <p>{errors}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

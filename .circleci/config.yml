@@ -12,7 +12,10 @@ jobs:
             against it.
 
             sfdx force:auth:list
-          name: Run your SFDX commands here
+          name: 
+            force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
+            force:source:push -u scratch
+            force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

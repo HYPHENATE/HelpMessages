@@ -84,7 +84,7 @@ jobs:
       - run: 
           name: Run Static Analysis
           command: |
-              pmd-bin-6.0.1/bin/run.sh pmd -d . -R $RULESET -f text -l apex -r static-analysis.txt 
+              pmd-bin-6.22.0/bin/run.sh pmd -d . -R $RULESET -f text -l apex -r static-analysis.txt 
       - store_artifacts:
           path: static-analysis.txt
   build-enterprise:

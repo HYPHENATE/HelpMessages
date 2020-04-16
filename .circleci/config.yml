@@ -9,17 +9,17 @@ jobs:
       - run: 
             name: Create Scratch Org
             command: |
-                force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
+                sfdx force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
       - run: 
             name: Push Source
             command: |
-                node_modules/sfdx-cli/bin/run force:source:push -u scratch
+                sfdx force:source:push -u scratch
       - run:
             name: Run Apex Tests
             command: |
                 mkdir ~/tests
                 mkdir ~/tests/apex
-                force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+                sfdx force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

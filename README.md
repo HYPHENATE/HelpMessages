@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/HYPHENATE/HelpMessages/branch/master/graph/badge.svg)](https://codecov.io/gh/HYPHENATE/HelpMessages)
+[![HYPHENATE](https://circleci.com/github/HYPHENATE/<HelpMessages.svg?style=svg)](https://app.circleci.com/pipelines/github/HYPHENATE/HelpMessages?branch=master)
+
 # Help Messages
 
 A simple tool that allow you to dynamically display help messages on page dependant on different configurations of record.

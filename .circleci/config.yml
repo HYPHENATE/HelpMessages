@@ -5,7 +5,7 @@ job-definition: &jobdef
         - checkout
         - restore_cache:
             keys:
-                - sfdx-6.8.2-local
+                - sfdx-7.53.0-local
         - run:
             name: Install Salesforce DX
             command: |
@@ -14,12 +14,12 @@ job-definition: &jobdef
                     export SFDX_AUTOUPDATE_DISABLE=true
                     export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
                     export SFDX_DOMAIN_RETRY=300
-                    npm install sfdx-cli@6.8.2
+                    npm install sfdx-cli@7.53.0
                     node_modules/sfdx-cli/bin/run --version
                     node_modules/sfdx-cli/bin/run plugins --core
                 fi
         - save_cache:
-            key: sfdx-6.8.2-local
+            key: sfdx-7.53.0-local
             paths: 
                 - node_modules
         - run: 
@@ -72,15 +72,15 @@ jobs:
       - run:
           name: Install PMD
           command: |
-              if [ ! -d pmd-bin-6.0.1 ]; then
-                  curl -L "https://github.com/pmd/pmd/releases/download/pmd_releases/6.0.1/pmd-bin-6.0.1.zip" -o pmd-bin-6.0.1.zip
-                  unzip pmd-bin-6.0.1.zip
-                  rm pmd-bin-6.0.1.zip
+              if [ ! -d pmd-bin-6.22.0.zip ]; then
+                  curl -L "https://github.com/pmd/pmd/releases/download/pmd_releases/6.22.0/pmd-bin-6.22.0.zip" -o pmd-bin-6.22.0.zip
+                  unzip pmd-bin-6.22.0.zip
+                  rm pmd-bin-6.22.0.zip
               fi
       - save_cache:
-          key: pmd-v6.0.1
+          key: pmd-v6.22.0
           paths: 
-              - pmd-bin-6.0.1
+              - pmd-bin-6.22.0
       - run: 
           name: Run Static Analysis
           command: |

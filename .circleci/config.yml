@@ -9,7 +9,7 @@ jobs:
       - run: 
             name: Create Scratch Org
             command: |
-                sfdx force:auth:web:login -d -a DevHub
+                sfdx force:auth:list
                 sfdx force:org:create -v DevHub -s -f "config/project-scratch-def.json" -a scratch
       - run: 
             name: Push Source

@@ -5,7 +5,7 @@ jobs:
       - checkout
       - sfdx/install
       - sfdx/auth:
-          defaultdevhubusername: daniel@hyphen8.com
+          defaultusername: daniel@hyphen8.com
       - run:
           command: >
             echo You now have access to the sfdx cli and may execute commands

@@ -10,7 +10,7 @@ jobs:
             name: Create Scratch Org
             command: |
                 sfdx force:auth:list
-                sfdx force:org:create -v DevHub -s -f "config/project-scratch-def.json" -a scratch
+                sfdx force:org:create -v HelpMessages-master -s -f "config/project-scratch-def.json" -a scratch
       - run: 
             name: Push Source
             command: |
@@ -21,6 +21,11 @@ jobs:
                 mkdir ~/tests
                 mkdir ~/tests/apex
                 sfdx force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+      - run: 
+            name: Push to Codecov.io
+            command: |
+                cp ~/tests/apex/test-result-codecoverage.json .
+                bash <(curl -s https://codecov.io/bash)
       - run: 
             name: Clean Up
             command: |

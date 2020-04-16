@@ -16,6 +16,10 @@ jobs:
             command: |
                 sfdx force:source:push -u scratch
       - run:
+            name: Assign Permission Set
+            command: |
+                sfdx force:user:permset:assign -n Help_Message_Editor
+      - run:
             name: Run Apex Tests
             command: |
                 mkdir ~/tests

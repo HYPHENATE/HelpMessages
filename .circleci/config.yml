@@ -6,16 +6,36 @@ jobs:
       - sfdx/install
       - sfdx/auth:
           defaultusername: daniel@hyphen8.com
+      - run: 
+            name: Create Scratch Org
+            command: |
+                force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
+      - run: 
+            name: Push Source
+            command: |
+                node_modules/sfdx-cli/bin/run force:source:push -u scratch
       - run:
-          command: >
-            echo You now have access to the sfdx cli and may execute commands
-            against it.
-
-            sfdx force:auth:list
-          name: 
-            force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
-            force:source:push -u scratch
-            force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+            name: Run Apex Tests
+            command: |
+                mkdir ~/tests
+                mkdir ~/tests/apex
+                force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+      - run: 
+            name: Push to Codecov.io
+            command: |
+                cp ~/tests/apex/test-result-codecoverage.json .
+                bash <(curl -s https://codecov.io/bash)
+      - run: 
+            name: Clean Up
+            when: always
+            command: |
+                node_modules/sfdx-cli/bin/run force:org:delete -u scratch -p
+                rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
+                rm assets/server.key
+        - store_artifacts:
+            path: ~/tests
+        - store_test_results:
+            path: ~/tests
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

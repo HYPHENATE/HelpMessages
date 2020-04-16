@@ -25,6 +25,7 @@
     </types>
     <types>
         <members>Help_Message_Lightning_Page</members>
+        <members>Help_UtilityBar</members>
         <name>FlexiPage</name>
     </types>
     <types>
@@ -37,7 +38,7 @@
     </types>
     <types>
       <members>NoHelpMessagesAvailable</members>
-      <members>NoHelpMessagesAvailable</members>
+      <members>HelpMessageDraftMessage</members>
       <name>CustomLabel</name>
     </types>
     <types>

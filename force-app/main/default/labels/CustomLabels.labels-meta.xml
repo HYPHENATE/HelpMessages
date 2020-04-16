@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>HelpMessageDraftMessage</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageDraftMessage</shortDescription>
+        <value>You are viewing this record as an Editor. This is a draft message, in order for all staff to access this message it must be published.</value>
+    </labels>
+    <labels>
         <fullName>NoHelpMessagesAvailable</fullName>
         <categories>HelpMessages</categories>
         <language>en_US</language>

@@ -6,11 +6,12 @@ jobs:
       - sfdx/install
       - sfdx/auth:
           defaultusername: daniel@hyphen8.com
+      - sfdx/scratch-deploy:
+          scratch-alias: scratch
       - run: 
-            name: Create Scratch Org
+            name: Get list of orgs
             command: |
-                sfdx force:auth:web:login -d -a DevHub
-                sfdx force:org:create -v DevHub -s -f "config/project-scratch-def.json" -a scratch
+                sfdx force:auth:list
       - run: 
             name: Push Source
             command: |

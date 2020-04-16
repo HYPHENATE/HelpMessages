@@ -20,17 +20,6 @@ jobs:
                 mkdir ~/tests
                 mkdir ~/tests/apex
                 force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
-      - run: 
-            name: Clean Up
-            when: always
-            command: |
-                force:org:delete -u scratch -p
-                rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
-                rm assets/server.key
-        - store_artifacts:
-            path: ~/tests
-        - store_test_results:
-            path: ~/tests
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

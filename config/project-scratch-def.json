@@ -1,8 +1,6 @@
 {
   "orgName": "Helping Company",
   "edition": "Enterprise",
-  "features": ["Sites"],
-  "orgPreferences" : {
-      "enabled": ["S1DesktopEnabled"]
-  }
+  "features": ["ServiceCloud"],
+  "settings": {}
 }

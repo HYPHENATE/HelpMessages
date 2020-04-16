@@ -1,5 +1,5 @@
 [![codecov](https://codecov.io/gh/HYPHENATE/HelpMessages/branch/master/graph/badge.svg)](https://codecov.io/gh/HYPHENATE/HelpMessages)
-[![HYPHENATE](https://circleci.com/github/HYPHENATE/<HelpMessages.svg?style=svg)](https://app.circleci.com/pipelines/github/HYPHENATE/HelpMessages?branch=master)
+[![HYPHENATE](https://circleci.com/github/HYPHENATE/HelpMessages.svg?style=svg)](https://circleci.com/gh/HYPHENATE/HelpMessages)
 
 # Help Messages
 

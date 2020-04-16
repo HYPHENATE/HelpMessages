@@ -1,99 +1,19 @@
-job-definition: &jobdef
-    docker:
-        - image: circleci/openjdk:latest-node-browsers
-    steps:
-        - checkout
-        - restore_cache:
-            keys:
-                - sfdx-7.53.0-local
-        - run:
-            name: Install Salesforce DX
-            command: |
-                openssl aes-256-cbc -k $KEY -in assets/server.key.enc -out assets/server.key -d -md sha256
-                if [ ! -d node_modules/sfdx-cli ]; then
-                    export SFDX_AUTOUPDATE_DISABLE=true
-                    export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-                    export SFDX_DOMAIN_RETRY=300
-                    npm install sfdx-cli@7.53.0
-                    node_modules/sfdx-cli/bin/run --version
-                    node_modules/sfdx-cli/bin/run plugins --core
-                fi
-        - save_cache:
-            key: sfdx-7.53.0-local
-            paths: 
-                - node_modules
-        - run: 
-            name: Create Scratch Org
-            command: |
-                node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername -a DevHub
-                echo "Creating scratch org with definition $SCRATCH_DEF"
-                node_modules/sfdx-cli/bin/run force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
-        - run:
-            name: Install Lightning Testing Service
-            command: |
-                node_modules/sfdx-cli/bin/run force:lightning:test:install -t jasmine
-        - run: 
-            name: Push Source
-            command: |
-                node_modules/sfdx-cli/bin/run force:source:push -u scratch
-        - run:
-            name: Run Apex Tests
-            command: |
-                mkdir ~/tests
-                mkdir ~/tests/apex
-                node_modules/sfdx-cli/bin/run force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
-        - run: 
-            name: Push to Codecov.io
-            command: |
-                cp ~/tests/apex/test-result-codecoverage.json .
-                bash <(curl -s https://codecov.io/bash)
-        - run: 
-            name: Clean Up
-            when: always
-            command: |
-                node_modules/sfdx-cli/bin/run force:org:delete -u scratch -p
-                rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
-                rm assets/server.key
-        - store_artifacts:
-            path: ~/tests
-        - store_test_results:
-            path: ~/tests
-
-version: 2
-jobs:
-  static-analysis:
-    docker:
-      - image: circleci/openjdk:latest
-    steps:
-      - checkout
-      - restore_cache:
-          keys: 
-            - pmd-v6.22.0
-      - run:
-          name: Install PMD
-          command: |
-              if [ ! -d pmd-bin-6.22.0.zip ]; then
-                  curl -L "https://github.com/pmd/pmd/releases/download/pmd_releases/6.22.0/pmd-bin-6.22.0.zip" -o pmd-bin-6.22.0.zip
-                  unzip pmd-bin-6.22.0.zip
-                  rm pmd-bin-6.22.0.zip
-              fi
-      - save_cache:
-          key: pmd-v6.22.0
-          paths: 
-              - pmd-bin-6.22.0
-      - run: 
-          name: Run Static Analysis
-          command: |
-              pmd-bin-6.22.0/bin/run.sh pmd -d . -R $RULESET -f text -l apex -r static-analysis.txt 
-      - store_artifacts:
-          path: static-analysis.txt
-  build-enterprise:
-     <<: *jobdef
-     environment:
-        SCRATCH_DEF: project-scratch-def.json
-workflows:
-  version: 2
-  test_and_static:
-    jobs:
-      - build-enterprise
-      - static-analysis
+version: 2.1
+ orbs:
+   sfdx: circleci/salesforce-sfdx@x.y
+ jobs:
+   install_authenticate:
+     executor: sfdx/default
+     steps:
+       - checkout
+       - sfdx/install
+       - sfdx/auth:
+           defaultusername: daniel@hyphen8.com
+       - run:
+           name: Run your SFDX commands here
+           command: |
+             echo "You now have access to the sfdx cli and may execute commands against it. https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm"
+ workflows:
+   basic-test:
+     jobs:
+       - install_authenticate

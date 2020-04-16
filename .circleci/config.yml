@@ -10,7 +10,7 @@ jobs:
           scratch-def: './config/project-scratch-def.json'
       - run:
           command:
-            sfdx force:org:create -f <<parameters.scratch-def>> -a <<parameters.scratch-alias>>
+            sfdx force:org:create -f scratch-def -a scratch-alias
           name: Create Scratch Org
       - run:
           command: 

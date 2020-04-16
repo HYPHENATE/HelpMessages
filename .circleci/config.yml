@@ -9,18 +9,20 @@ jobs:
           scratch-alias: scratch
           scratch-def: './config/project-scratch-def.json'
       - run:
-          command: >-
+          command:
             sfdx force:org:create -f <<parameters.scratch-def>> -a <<parameters.scratch-alias>>
           name: Create Scratch Org
       - run:
-          command: 'sfdx force:source:push'
+          command: 
+            sfdx force:source:push
           name: Push App To Scratch Org
        - run:
-          command: >-
+          command:
             sfdx force:apex:test:run --wait 10 --resultformat junit --codecoverage --testlevel RunLocalTests
           name: Run Unit Tests
       - run:
-          command: 'sfdx force:org:delete --noprompt'
+          command: 
+            sfdx force:org:delete --noprompt
           name: Delete scratch org
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0

@@ -43,6 +43,19 @@ public with sharing class HelpMessageController_Test {
         //Check first message name = TestRecordMessage1 and second message name = TestRecordMessage2
         System.assertEquals(messages[0].Name, 'TestRecordMessage1', 'Expected value in response');
 
+        ID helpmessage = [SELECT ID FROM Help_Message__c LIMIT 1].Id;
+        string publishhelpmessage = HelpMessageController.changeMessageStatus(helpmessage, 'Published');
+        system.assertEquals('You have successfully changed the status', publishhelpmessage, 'We got the correct message back');
+
+        string unpublishhelpmessage = HelpMessageController.changeMessageStatus(helpmessage, 'Unpublished');
+        system.assertEquals('You have successfully changed the status', unpublishhelpmessage, 'We got the correct message back');
+
+        string helpmessageerror = HelpMessageController.changeMessageStatus(null, null);
+        system.assertNotEquals('You have successfully changed the status', helpmessageerror, 'We did not get the correct message back');
+
+        boolean canviewrecordcheck = HelpMessageController.canViewRecordActions();
+        system.assertEquals(true, canviewrecordcheck, 'We do have the correct permissions');
+
     }
 
     static testMethod void testAccountTwo() {
@@ -88,6 +101,8 @@ public with sharing class HelpMessageController_Test {
             List<Help_Message__c> messages = HelpMessageController.getHelpMessages(acc.Id);
             //Should return first and third messages
             System.assertEquals(0, messages.size(), 'Message size matches expected');
+            boolean canviewrecordcheck = HelpMessageController.canViewRecordActions();
+            system.assertEquals(false, canviewrecordcheck, 'We do not have the correct permissions');
         }
 
     }

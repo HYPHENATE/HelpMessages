@@ -14,6 +14,44 @@ public with sharing class HelpMessageController {
 
     public static final String FIELD_VALUE_OR_DELIMITER = ',';
 
+    /**
+     * @description     method that will support the handling of publishing and unpublishing actions
+     * @param           string recordId - this is the message to process
+     * @param           string status - this is the status that we will change
+     * @return          string return message of success or failure
+    */
+    @AuraEnabled
+    public static string changeMessageStatus(string recordId, string status){
+        string returnmessage;
+        try {
+            Help_Message__c helpmessage = [SELECT ID, Status__c FROM Help_Message__c WHERE ID=:recordId LIMIT 1];
+            helpmessage.Status__c = status;
+            update helpmessage;
+            returnmessage = 'You have successfully changed the status';
+        } catch(Exception e){
+            returnmessage = 'We encountered an error > ' + e.getMessage();
+        }
+        return returnmessage;
+    }
+
+    /**
+     * @description     method to confirm if the current user is a member of the editor permission set
+     * @return          boolean true yes they are false no they are not
+    */
+    @AuraEnabled
+    public static boolean canViewRecordActions(){
+        ID userID = UserInfo.getUserId();
+        boolean returnvalue;
+        try {
+            ID helpmessageeditorpermissionset = [SELECT PermissionSetId FROM PermissionSetAssignment WHERE PermissionSet.Name = 'Help_Message_Editor' AND AssigneeId=:UserId].PermissionSetId;
+            returnvalue = true;
+        } catch (Exception e){
+            system.debug(e.getMessage());
+            returnvalue = false;
+        }
+        return returnvalue;
+    }
+
 
     /**
      * @description     simple help to confirm what statuses we should be looking for based on the current user access the help messages

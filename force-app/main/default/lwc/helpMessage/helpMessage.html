@@ -7,13 +7,29 @@
             <template if:true={messages}>    
                 <lightning-accordion if:true={hasAnyMessageResults} allow-multiple-sections-open>
                     <template for:each={messages} for:item="message">
-                        <lightning-accordion-section key={message.Id} name={message.Id} label={message.gf8__Message_Title__c}>
-                            <template if:true={message.gf8__Is_Draft__c}>
+                        <lightning-accordion-section key={message.Id} name={message.Id} label={message.Message_Title__c}>
+                            <template if:true={message.Is_Draft__c}>
                                 <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-bottom_medium" role="alert">
                                     <h2>{label.DraftTextMessage}</h2>
                                 </div>
                             </template>
-                            <lightning-formatted-rich-text value={message.gf8__Message__c}></lightning-formatted-rich-text>
+                            <lightning-formatted-rich-text value={message.Message__c}></lightning-formatted-rich-text>
+                            <template if:true={displayactions}>
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_right">
+                                        <lightning-button-group>
+                                            <lightning-button-icon icon-name="utility:edit" value={message.Id} variant="bare" size="medium" alternative-text="Edit" onclick={editmessage} ></lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:preview" value={message.Id} variant="bare" size="medium" alternative-text="View" class="slds-m-left_xx-small" onclick={viewmessage} ></lightning-button-icon>
+                                            <template if:true={message.Is_Draft__c}>
+                                                <lightning-button-icon icon-name="utility:check" value={message.Id} variant="bare" size="medium" alternative-text="Publish" class="slds-m-left_xx-small" onclick={publishmessage} ></lightning-button-icon>
+                                            </template>
+                                            <template if:false={message.Is_Draft__c}>
+                                                <lightning-button-icon icon-name="utility:close" value={message.Id} variant="bare" size="medium" alternative-text="Unpublish" class="slds-m-left_xx-small" onclick={unpublishmessage} ></lightning-button-icon>
+                                            </template>
+                                        </lightning-button-group>
+                                    </div>
+                                </div>
+                            </template>
                         </lightning-accordion-section>                                
                     </template>
                 </lightning-accordion>

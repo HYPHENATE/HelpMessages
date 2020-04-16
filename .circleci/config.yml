@@ -68,7 +68,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - pmd-v6.0.1
+            - pmd-v6.22.0
       - run:
           name: Install PMD
           command: |

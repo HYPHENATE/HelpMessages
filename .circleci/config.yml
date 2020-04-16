@@ -27,10 +27,6 @@ jobs:
             command: |
                 sfdx force:org:delete -u scratch -p
                 rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
-        - store_artifacts:
-            path: ~/tests
-        - store_test_results:
-            path: ~/tests
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

@@ -40,16 +40,6 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 - Support for AND and OR in your filters
 - Support for only String comparisons Equals or not equals
 
-## TODO
-- Implement security permission checking
-- Expand on filters to allow for greater than, less than, greater than or equal, less than or equal
-- Expand on filters to allow for Boolean, Decimal, Percent, Date field comparison
-- Implement validation checks against the field / object API Names provided
-- Implement new UI for creation of messages and filters
-- Implement pencil on record message to allow Editors quick access to edit / amend a message from the record
-- Make editor checking more dynamic and configurable
-- Make record message statuses more dynamic and configurable
-
 ## Credits
 
 - Dan Croft - for the initial build

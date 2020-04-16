@@ -6,24 +6,26 @@ jobs:
       - sfdx/install
       - sfdx/auth:
           defaultusername: daniel@hyphen8.com
-          scratch-alias: scratch
-          scratch-def: './config/project-scratch-def.json'
+      - run: 
+            name: Create Scratch Org
+            command: |
+                sfdx force:auth:web:login -d -a DevHub
+                sfdx force:org:create -v DevHub -s -f "config/project-scratch-def.json" -a scratch
+      - run: 
+            name: Push Source
+            command: |
+                sfdx force:source:push -u scratch
       - run:
-          command:
-            sfdx force:org:create -f scratch-def -a scratch-alias
-          name: Create Scratch Org
-      - run:
-          command: 
-            sfdx force:source:push
-          name: Push App To Scratch Org
-       - run:
-          command:
-            sfdx force:apex:test:run --wait 10 --resultformat junit --codecoverage --testlevel RunLocalTests
-          name: Run Unit Tests
-      - run:
-          command: 
-            sfdx force:org:delete --noprompt
-          name: Delete scratch org
+            name: Run Apex Tests
+            command: |
+                mkdir ~/tests
+                mkdir ~/tests/apex
+                sfdx force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+      - run: 
+            name: Clean Up
+            command: |
+                sfdx force:org:delete -u scratch -p
+                rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1

@@ -1,5 +1,5 @@
 jobs:
-  install_authenticate:
+  install_authenticate_test:
     executor: sfdx/default
     steps:
       - checkout
@@ -10,7 +10,7 @@ jobs:
             name: Create Scratch Org
             command: |
                 sfdx force:auth:web:login -d -a DevHub
-                sfdx force:org:create -v DevHub -s -f "config/$SCRATCH_DEF" -a scratch
+                sfdx force:org:create -v DevHub -s -f "config/project-scratch-def.json" -a scratch
       - run: 
             name: Push Source
             command: |
@@ -21,10 +21,20 @@ jobs:
                 mkdir ~/tests
                 mkdir ~/tests/apex
                 sfdx force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
+      - run: 
+            name: Clean Up
+            when: always
+            command: |
+                sfdx force:org:delete -u scratch -p
+                rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
+        - store_artifacts:
+            path: ~/tests
+        - store_test_results:
+            path: ~/tests
 orbs:
   sfdx: circleci/salesforce-sfdx@1.0.0
 version: 2.1
 workflows:
-  basic-test:
+  package-test:
     jobs:
-      - install_authenticate
+      - install_authenticate_test

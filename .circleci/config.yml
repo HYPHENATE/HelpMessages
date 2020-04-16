@@ -21,15 +21,10 @@ jobs:
                 mkdir ~/tests/apex
                 force:apex:test:run -u scratch -c -r human -d ~/tests/apex -w 9999
       - run: 
-            name: Push to Codecov.io
-            command: |
-                cp ~/tests/apex/test-result-codecoverage.json .
-                bash <(curl -s https://codecov.io/bash)
-      - run: 
             name: Clean Up
             when: always
             command: |
-                node_modules/sfdx-cli/bin/run force:org:delete -u scratch -p
+                force:org:delete -u scratch -p
                 rm ~/tests/apex/*.txt ~/tests/apex/test-result-7*.json
                 rm assets/server.key
         - store_artifacts:

@@ -1,5 +1,8 @@
 {
-  "orgName": "Demo company",
-  "edition": "Developer",
-  "features": []
+  "orgName": "Helping Company",
+  "edition": "Enterprise",
+  "features": ["Sites"],
+  "orgPreferences" : {
+      "enabled": ["S1DesktopEnabled"]
+  }
 }

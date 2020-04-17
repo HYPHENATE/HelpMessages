@@ -21,6 +21,26 @@
                 <default>false</default>
                 <label>not equal to</label>
             </value>
+            <value>
+                <fullName>greater than</fullName>
+                <default>false</default>
+                <label>greater than</label>
+            </value>
+            <value>
+                <fullName>greater than or equals</fullName>
+                <default>false</default>
+                <label>greater than or equals</label>
+            </value>
+            <value>
+                <fullName>less than</fullName>
+                <default>false</default>
+                <label>less than</label>
+            </value>
+            <value>
+                <fullName>less than or equals</fullName>
+                <default>false</default>
+                <label>less than or equals</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

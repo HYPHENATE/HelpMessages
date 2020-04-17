@@ -6,12 +6,49 @@
 */
 public with sharing class HelpMessageController {
    
+    /**
+     * @description     static string confirming AND FILTER LOGIC for use with SOQL Queries
+    */
     public static final String FILTER_LOGIC_AND = 'AND';
+    
+    /**
+     * @description     static string confirming OR FILTER LOGIC for use with SOQL Queries
+    */
     public static final String FILTER_LOGIC_OR = 'OR';
     
+    /**
+     * @description     static string confirming EQUALS FILTER LOGIC for use with SOQL Queries
+    */
     public static final String FIELD_OPERATOR_EQUALS = 'equals';
+
+    /**
+     * @description     static string confirming NOT EQUAL TO FILTER LOGIC for use with SOQL Queries
+    */
     public static final String FIELD_OPERATOR_NOT_EQUALS = 'not equal to';
 
+    /**
+     * @description     static string confirming GREATER THAN TO FILTER LOGIC for use with SOQL Queries
+    */
+    public static final String FIELD_OPERATOR_GREATER_THAN = 'greater than';
+
+    /**
+     * @description     static string confirming GREATER THAN QUALS TO FILTER LOGIC for use with SOQL Queries
+    */
+    public static final String FIELD_OPERATOR_GREATER_THAN_EQUALS = 'greater than or equals';
+
+    /**
+     * @description     static string confirming LESS THAN TO FILTER LOGIC for use with SOQL Queries
+    */
+    public static final String FIELD_OPERATOR_LESS_THAN = 'less than';
+
+    /**
+     * @description     static string confirming LESS THAN OR EQUALS TO FILTER LOGIC for use with SOQL Queries
+    */
+    public static final String FIELD_OPERATOR_LESS_THAN_EQUALS = 'less than or equals';
+
+    /**
+     * @description     static string confirming FIELD DELIMITER
+    */
     public static final String FIELD_VALUE_OR_DELIMITER = ',';
 
     /**
@@ -249,6 +286,7 @@ public with sharing class HelpMessageController {
 
                 //Need to support cross object reference link RecordType.Name
                 boolean filterCheck;
+                SYSTEM.DEBUG('filter.Field_Operator__c > ' + filter.Field_Operator__c);
                 if(filter.Field_Operator__c==FIELD_OPERATOR_EQUALS) {
                     Object fieldResult = getSObjectField(record, filter.Field_Name__c);
                     if (fieldType == Schema.DisplayType.BOOLEAN){
@@ -267,13 +305,27 @@ public with sharing class HelpMessageController {
                         
                     } else {
                        filterCheck = (fieldResult==filter.Field_Value__c); 
-                    }
-                    
-                                            
+                    }                         
                 } else if(filter.Field_Operator__c==FIELD_OPERATOR_NOT_EQUALS) {
                     filterCheck = getSObjectField(record, filter.Field_Name__c)!=filter.Field_Value__c;                         
-                } 
-                    
+                } else if(filter.Field_Operator__c==FIELD_OPERATOR_GREATER_THAN) {
+                    decimal valuecheck = decimal.valueof(filter.Field_Value__c);
+                    decimal objectvalue = (decimal)getSObjectField(record, filter.Field_Name__c);
+                    filterCheck = objectvalue>valuecheck; 
+                } else if(filter.Field_Operator__c==FIELD_OPERATOR_GREATER_THAN_EQUALS) {
+                    decimal valuecheck = decimal.valueof(filter.Field_Value__c);
+                    decimal objectvalue = (decimal)getSObjectField(record, filter.Field_Name__c);
+                    filterCheck = objectvalue>=valuecheck; 
+                } else if(filter.Field_Operator__c==FIELD_OPERATOR_LESS_THAN) {
+                    decimal valuecheck = decimal.valueof(filter.Field_Value__c);
+                    decimal objectvalue = (decimal)getSObjectField(record, filter.Field_Name__c);
+                    filterCheck = objectvalue<valuecheck; 
+                } else if(filter.Field_Operator__c==FIELD_OPERATOR_LESS_THAN_EQUALS) {
+                    decimal valuecheck = decimal.valueof(filter.Field_Value__c);
+                    decimal objectvalue = (decimal)getSObjectField(record, filter.Field_Name__c);
+                    filterCheck = objectvalue<=valuecheck; 
+                }
+
                 if(filterLogic==FILTER_LOGIC_OR){
                     result = result || filterCheck;
                 } else if(filterLogic==FILTER_LOGIC_AND) 

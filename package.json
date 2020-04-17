@@ -1,8 +1,8 @@
 {
-  "name": "salesforce-app",
+  "name": "help-messages",
   "private": true,
   "version": "1.0.0",
-  "description": "Salesforce App",
+  "description": "A simple help message solution for dynamically dispaying help and guidances on any record.",
   "scripts": {
     "lint": "npm run lint:lwc",
     "lint:lwc": "eslint force-app/main/default/lwc",

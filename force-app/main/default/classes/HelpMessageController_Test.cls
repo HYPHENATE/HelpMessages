@@ -1,7 +1,8 @@
 /**
  *  @description        test class for HelpMessageController
- *  @author             hyphen8.com
- *  @date               July 2019
+ *  @author             daniel@hyphen8.com
+ *  @date               17/04/2020
+ *  @group              Tests
 */
 @isTest
 public with sharing class HelpMessageController_Test {

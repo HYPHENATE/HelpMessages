@@ -4,7 +4,6 @@
         <members>HelpMessageController</members>
         <members>HelpMessageConstants</members>
         <members>HelpMessageHelper</members>
-        <members>HelpMessageController</members>
         <members>HelpMessageController_Test</members>
         <name>ApexClass</name>
     </types>

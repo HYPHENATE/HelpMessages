@@ -37,6 +37,8 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 4. Apply the Help Message Viewer permission set to end users
 5. Repeat and continue to repeat until you have go rid of your old offline documentation for your processes.
 
+<a href="https://web.microsoftstream.com/video/cef94101-46a5-4d8d-8538-51fd6584c005">Help Messages Setup Video</a>
+
 ## Part 3: Limitations
 
 ### Filters

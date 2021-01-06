@@ -71,6 +71,7 @@ public with sharing class HelpMessageController {
     public static List<Help_Message__c> getHelpMessages(Id recordId){
 
         List<String> statuslist = HelpMessageController.getStatusList(UserInfo.getUserId());
+        system.debug('statuslist > ' + statuslist);
 
         List<Help_Message__c> results = new List<Help_Message__c>();
 

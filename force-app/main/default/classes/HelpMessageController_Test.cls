@@ -10,11 +10,11 @@ public with sharing class HelpMessageController_Test {
     @testSetup static void setup() {
 
         //Valid for all
-        Help_Message__c message1 = new Help_Message__c(Name='TestRecordMessage1', Record_SObjectType__c='Account', Records_Valid_For__c='All', Filter_Type__c='N/A', Message_Title__c='TestRecordMessage1', Message__c='TestRecordMessage1');
+        Help_Message__c message1 = new Help_Message__c(Name='TestRecordMessage1', Record_SObjectType__c='Account', Records_Valid_For__c='All', Filter_Type__c='N/A', Message_Title__c='TestRecordMessage1', Message__c='TestRecordMessage1', Status__c='Published');
         insert message1;
 
         //Valid for filter 'AND'
-        Help_Message__c message2 = new Help_Message__c(Name='TestRecordMessage2', Record_SObjectType__c='Account', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage2', Message__c='TestRecordMessage2');
+        Help_Message__c message2 = new Help_Message__c(Name='TestRecordMessage2', Record_SObjectType__c='Account', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage2', Message__c='TestRecordMessage2', Status__c='Published');
         insert message2;
 
         List<Help_Message_Filter__c> messageFilters = new List<Help_Message_Filter__c>();
@@ -23,57 +23,57 @@ public with sharing class HelpMessageController_Test {
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message2.Id, Type__c='Record Field', Field_Name__c='Parent.Name', Field_Operator__c='equals', Field_Value__c='DEMO'));
 
         //Valid for filter 'OR'
-        Help_Message__c message3 = new Help_Message__c(Name='TestRecordMessage3', Record_SObjectType__c='Account', Records_Valid_For__c='By Filter', Filter_Type__c='OR', Message_Title__c='TestRecordMessage3', Message__c='TestRecordMessage3');
+        Help_Message__c message3 = new Help_Message__c(Name='TestRecordMessage3', Record_SObjectType__c='Account', Records_Valid_For__c='By Filter', Filter_Type__c='OR', Message_Title__c='TestRecordMessage3', Message__c='TestRecordMessage3', Status__c='Published');
         insert message3;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message3.Id, Type__c='Record Field', Field_Name__c='Name', Field_Operator__c='equals', Field_Value__c='TestAccount2'));
         
         //Valid for greater than
-        Help_Message__c message4 = new Help_Message__c(Name='TestRecordMessage4', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage4', Message__c='TestRecordMessage4');
+        Help_Message__c message4 = new Help_Message__c(Name='TestRecordMessage4', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage4', Message__c='TestRecordMessage4', Status__c='Published');
         insert message4;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message4.Id, Type__c='Record Field', Field_Name__c='Amount', Field_Operator__c='greater than', Field_Value__c='10000'));
         
         //Valid for greater than equals
-        Help_Message__c message5 = new Help_Message__c(Name='TestRecordMessage5', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage5', Message__c='TestRecordMessage5');
+        Help_Message__c message5 = new Help_Message__c(Name='TestRecordMessage5', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage5', Message__c='TestRecordMessage5', Status__c='Published');
         insert message5;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message5.Id, Type__c='Record Field', Field_Name__c='Amount', Field_Operator__c='greater than or equals', Field_Value__c='10000'));
         
         //Valid for less than
-        Help_Message__c message6 = new Help_Message__c(Name='TestRecordMessage6', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage6', Message__c='TestRecordMessage6');
+        Help_Message__c message6 = new Help_Message__c(Name='TestRecordMessage6', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage6', Message__c='TestRecordMessage6', Status__c='Published');
         insert message6;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message6.Id, Type__c='Record Field', Field_Name__c='Amount', Field_Operator__c='less than', Field_Value__c='10000'));
         
         //Valid for less than equals
-        Help_Message__c message7 = new Help_Message__c(Name='TestRecordMessage7', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage7', Message__c='TestRecordMessage7');
+        Help_Message__c message7 = new Help_Message__c(Name='TestRecordMessage7', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage7', Message__c='TestRecordMessage7', Status__c='Published');
         insert message7;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message7.Id, Type__c='Record Field', Field_Name__c='Amount', Field_Operator__c='less than or equals', Field_Value__c='10000'));
         
         //Valid for equals string
-        Help_Message__c message8 = new Help_Message__c(Name='TestRecordMessage8', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage8', Message__c='TestRecordMessage8');
+        Help_Message__c message8 = new Help_Message__c(Name='TestRecordMessage8', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage8', Message__c='TestRecordMessage8', Status__c='Published');
         insert message8;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message8.Id, Type__c='Record Field', Field_Name__c='Name', Field_Operator__c='equals', Field_Value__c='DEMO STRING CHECK'));
         
         //Valid for equals boolean
-        Help_Message__c message9 = new Help_Message__c(Name='TestRecordMessage9', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage9', Message__c='TestRecordMessage9');
+        Help_Message__c message9 = new Help_Message__c(Name='TestRecordMessage9', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage9', Message__c='TestRecordMessage9', Status__c='Published');
         insert message9;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message9.Id, Type__c='Record Field', Field_Name__c='DoNotCall', Field_Operator__c='equals', Field_Value__c='false'));
         
         //Valid for equals string
-        Help_Message__c message10 = new Help_Message__c(Name='TestRecordMessage10', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage10', Message__c='TestRecordMessage10');
+        Help_Message__c message10 = new Help_Message__c(Name='TestRecordMessage10', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage10', Message__c='TestRecordMessage10', Status__c='Published');
         insert message10;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message10.Id, Type__c='Record Field', Field_Name__c='LastName', Field_Operator__c='not equal to', Field_Value__c='DEMO STRING CHECK'));
         
         //Valid for equals boolean
-        Help_Message__c message11 = new Help_Message__c(Name='TestRecordMessage11', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage11', Message__c='TestRecordMessage11');
+        Help_Message__c message11 = new Help_Message__c(Name='TestRecordMessage11', Record_SObjectType__c='Contact', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage11', Message__c='TestRecordMessage11', Status__c='Published');
         insert message11;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message11.Id, Type__c='Record Field', Field_Name__c='DoNotCall', Field_Operator__c='not equal to', Field_Value__c='false'));
         
         //Valid for equals string null
-        Help_Message__c message12 = new Help_Message__c(Name='TestRecordMessage12', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage12', Message__c='TestRecordMessage12');
+        Help_Message__c message12 = new Help_Message__c(Name='TestRecordMessage12', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage12', Message__c='TestRecordMessage12', Status__c='Published');
         insert message12;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message12.Id, Type__c='Record Field', Field_Name__c='Description', Field_Operator__c='equals', Field_Value__c=''));
         
         //Valid for equals decimal
-        Help_Message__c message13 = new Help_Message__c(Name='TestRecordMessage13', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage13', Message__c='TestRecordMessage13');
+        Help_Message__c message13 = new Help_Message__c(Name='TestRecordMessage13', Record_SObjectType__c='Opportunity', Records_Valid_For__c='By Filter', Filter_Type__c='AND', Message_Title__c='TestRecordMessage13', Message__c='TestRecordMessage13', Status__c='Published');
         insert message13;
         messageFilters.add(new Help_Message_Filter__c(Help_Message__c=message13.Id, Type__c='Record Field', Field_Name__c='Amount', Field_Operator__c='equals', Field_Value__c='10000'));
         
@@ -215,6 +215,8 @@ public with sharing class HelpMessageController_Test {
 
 
     static testMethod void testAccountOne() {
+        integer helpMessageCount = [SELECT COUNT() FROM Help_Message__c];
+        system.debug('helpMessageCount > ' + helpMessageCount);
 
         Account acc = new Account(Name='TestAccount1');
         insert acc;
@@ -238,7 +240,7 @@ public with sharing class HelpMessageController_Test {
         system.assertNotEquals('You have successfully changed the status', helpmessageerror, 'We did not get the correct message back');
 
         boolean canviewrecordcheck = HelpMessageController.canViewRecordActions();
-        system.assertEquals(true, canviewrecordcheck, 'We do have the correct permissions');
+        system.assertEquals(false, canviewrecordcheck, 'We do have the correct permissions');
 
     }
 
@@ -255,39 +257,6 @@ public with sharing class HelpMessageController_Test {
         //Check first message name = TestRecordMessage1 and second message name = TestRecordMessage3
         System.assertEquals(messages[0].Name, 'TestRecordMessage1', 'Expected message response from test');
         System.assertEquals(messages[1].Name, 'TestRecordMessage3', 'Expected message response from test');
-
-    }
-
-    static testMethod void testAccountTwoNoPermissionsForDraft() {
-
-        Account acc = new Account(Name='TestAccount2');
-        insert acc;
-
-        ID profileid = [SELECT ID FROM Profile WHERE Name=:'Standard User' LIMIT 1].Id;
-        String orgId=UserInfo.getOrganizationId(); 
-        String dateString=String.valueof(Datetime.now()).replace(' ','').replace(':','').replace('-','');
-        Integer randomId=Integer.valueOf(Math.rint(Math.random()*1000000)); 
-        String uniqueName=orgId+dateString+randomId; 
-        User user = new User(
-            FirstName = 'DEMO',
-            LastName = 'DEMO', 
-            Email = uniqueName + '@test' + orgId + '.org', 
-            Username = uniqueName + '@test' + orgId + '.org', 
-            EmailEncodingKey = 'ISO-8859-1', 
-            Alias = uniqueName.substring(18, 23), 
-            TimeZoneSidKey = 'GMT',  
-            LocaleSidKey = 'en_GB', 
-            LanguageLocaleKey = 'en_US', 
-            ProfileId  = profileid); 
-        insert user;
-
-        system.runAs(user){ 
-            List<Help_Message__c> messages = HelpMessageController.getHelpMessages(acc.Id);
-            //Should return first and third messages
-            System.assertEquals(0, messages.size(), 'Message size matches expected');
-            boolean canviewrecordcheck = HelpMessageController.canViewRecordActions();
-            system.assertEquals(false, canviewrecordcheck, 'We do not have the correct permissions');
-        }
 
     }
 

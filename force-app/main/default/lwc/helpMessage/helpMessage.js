@@ -1,25 +1,31 @@
+/**
+ * @description       : help messages JS file
+ * @author            : daniel@hyphen8.com
+ * @group             : 
+ * @last modified on  : 01-08-2021
+ * @last modified by  : daniel@hyphen8.com
+ * Modifications Log 
+ * Ver   Date         Author               Modification
+ * 1.0   01-08-2021   daniel@hyphen8.com   Initial Version
+**/
 import { LightningElement, track, api, wire } from 'lwc';
 
 import getHelpMessages from '@salesforce/apex/HelpMessageController.getHelpMessages';
 import canViewRecordActions from '@salesforce/apex/HelpMessageController.canViewRecordActions';
 import changeMessageStatus from '@salesforce/apex/HelpMessageController.changeMessageStatus';
-import NoHelpAvailable from '@salesforce/label/c.NoHelpMessagesAvailable';
-import DraftTextMessage from '@salesforce/label/c.HelpMessageDraftMessage';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+import labels from './labels';
 export default class helpMessage extends NavigationMixin(LightningElement) {
 
-    label = {
-        NoHelpAvailable,
-        DraftTextMessage,
-    };
+    label = labels;
     
     @api recordId;
 
-    @track messages;
-    @track errors;
-    @track displayactions = false;
+    messages;
+    errors;
+    displayActions = false;
 
     // method to pull in the messages to display
     handleGetHelpMessages() {
@@ -37,15 +43,15 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     }
 
     // method to check if the current user is an editor
-    handlecanViewRecordActions() {
+    handleCanViewRecordActions() {
         canViewRecordActions({})
         .then((results) => {
-            this.displayactions = results;
+            this.displayActions = results;
             this.errors = undefined;  
         })
         .catch((error) => {
             this.errors = JSON.stringify(error);
-            this.displayactions = undefined;
+            this.displayActions = undefined;
         });
     }
 
@@ -65,17 +71,16 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     // handle the refresh button
     handleRefresh() {
         this.handleGetHelpMessages();  
-        this.handlecanViewRecordActions();     
+        this.handleCanViewRecordActions();     
     }
 
     // handle the edit message button
-    editmessage(event){
-        let messageid = event.target.value;
-        window.console.log('edit message id > ' + messageid);
+    editMessage(event){
+        let messageId = event.target.value;
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
-                recordId: messageid,
+                recordId: messageId,
                 objectApiName: 'Help_Message__c', 
                 actionName: 'edit'
             }
@@ -83,13 +88,13 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     }
 
     // handle the view message button
-    viewmessage(event){
-        let messageid = event.target.value;
-        window.console.log('view message id > ' + messageid);
+    viewMessage(event){
+        let messageId = event.target.value;
+        window.console.log('view message id > ' + messageId);
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
-                recordId: messageid,
+                recordId: messageId,
                 objectApiName: 'Help_Message__c', 
                 actionName: 'view'
             }
@@ -97,10 +102,10 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     }
 
     // handle publish action
-    publishmessage(event){
-        let messageid = event.target.value;
+    publishMessage(event){
+        let messageId = event.target.value;
         changeMessageStatus({
-            recordId: messageid,
+            recordId: messageId,
             status: 'Published'
         })
         .then((results) => {
@@ -127,10 +132,10 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     }
 
     // handle unpublish action
-    unpublishmessage(event){
-        let messageid = event.target.value;
+    unpublishMessage(event){
+        let messageId = event.target.value;
         changeMessageStatus({
-            recordId: messageid,
+            recordId: messageId,
             status: 'Unpublished'
         })
         .then((results) => {

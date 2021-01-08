@@ -1,6 +1,13 @@
 {
   "orgName": "Helping Company",
-  "edition": "Enterprise",
-  "features": ["Communities"],
-  "settings": {}
+  "edition": "Developer",
+  "features": [],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
 }

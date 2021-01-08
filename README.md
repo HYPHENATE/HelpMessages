@@ -9,6 +9,9 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 
 ## Verion Control
 
+### 1.0.1
+- updated api to version 50
+- provided unlocked package installation links
 ### 1.0 - Initial release
 
 - Object - Help Message - Object Used for storing the message in
@@ -25,8 +28,12 @@ Ability to save as draft that only editors can see on page and then publish. Equ
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
+Unlocked package installation links:
+- Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK
+- Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK
+
 1. You need to ensure you have your My Domain Configured.
-2. Use the button above to deploy this to your salesforce.
+2. Use the button above to deploy this to your salesforce or click on the appropriate unlocked package installation link.
 3. Once deployed you are ready to setup / configure your first message.
 
 ## Part 2: Configuration

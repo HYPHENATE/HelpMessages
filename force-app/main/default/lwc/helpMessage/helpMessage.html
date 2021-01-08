@@ -1,3 +1,13 @@
+<!--
+  @description       : Main help message component for displaying help messages on any object
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 01-08-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-08-2021   daniel@hyphen8.com   Initial Version
+-->
 <template>
     <lightning-card title="Help Messages">
         <div slot="actions">
@@ -14,17 +24,17 @@
                                 </div>
                             </template>
                             <lightning-formatted-rich-text value={message.Message__c}></lightning-formatted-rich-text>
-                            <template if:true={displayactions}>
+                            <template if:true={displayActions}>
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
                                         <lightning-button-group>
-                                            <lightning-button-icon icon-name="utility:edit" value={message.Id} variant="bare" size="medium" alternative-text="Edit" onclick={editmessage} ></lightning-button-icon>
-                                            <lightning-button-icon icon-name="utility:preview" value={message.Id} variant="bare" size="medium" alternative-text="View" class="slds-m-left_xx-small" onclick={viewmessage} ></lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:edit" value={message.Id} variant="bare" size="medium" alternative-text="Edit" onclick={editMessage} ></lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:preview" value={message.Id} variant="bare" size="medium" alternative-text="View" class="slds-m-left_xx-small" onclick={viewMessage} ></lightning-button-icon>
                                             <template if:true={message.Is_Draft__c}>
-                                                <lightning-button-icon icon-name="utility:check" value={message.Id} variant="bare" size="medium" alternative-text="Publish" class="slds-m-left_xx-small" onclick={publishmessage} ></lightning-button-icon>
+                                                <lightning-button-icon icon-name="utility:check" value={message.Id} variant="bare" size="medium" alternative-text="Publish" class="slds-m-left_xx-small" onclick={publishMessage} ></lightning-button-icon>
                                             </template>
                                             <template if:false={message.Is_Draft__c}>
-                                                <lightning-button-icon icon-name="utility:close" value={message.Id} variant="bare" size="medium" alternative-text="Unpublish" class="slds-m-left_xx-small" onclick={unpublishmessage} ></lightning-button-icon>
+                                                <lightning-button-icon icon-name="utility:close" value={message.Id} variant="bare" size="medium" alternative-text="Unpublish" class="slds-m-left_xx-small" onclick={unpublishMessage} ></lightning-button-icon>
                                             </template>
                                         </lightning-button-group>
                                     </div>

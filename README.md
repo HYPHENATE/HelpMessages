@@ -23,11 +23,6 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 
 ## Part 1: Installation
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=HYPHENATE&repo=HelpMessages">
-  <img alt="Deploy to Salesforce"
-       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
-</a>
-
 Unlocked package installation links:
 - Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK
 - Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK

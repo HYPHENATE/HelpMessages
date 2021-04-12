@@ -24,8 +24,8 @@ Ability to save as draft that only editors can see on page and then publish. Equ
 ## Part 1: Installation
 
 Unlocked package installation links:
-- Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK
-- Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaF5AAK
+- Production: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaW6AAK
+- Sandbox: https://test.salesforce.com/packaging/installPackage.apexp?p0=04t67000000SaW6AAK
 
 1. You need to ensure you have your My Domain Configured.
 2. Use the button above to deploy this to your salesforce or click on the appropriate unlocked package installation link.

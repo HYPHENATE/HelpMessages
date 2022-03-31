@@ -209,7 +209,7 @@ public with sharing class HelpMessageHelper {
             Object fieldResult = HelpMessageHelper.getSObjectField(record, filter.Field_Name__c);
             if (fieldType == Schema.DisplayType.BOOLEAN){
                 filterCheck = (fieldResult==Boolean.valueOf(filter.Field_Value__c));        
-            } else if (fieldType == Schema.DisplayType.STRING || fieldType == Schema.DisplayType.PICKLIST && !String.isBlank(filter.Field_Value__c)){
+            } else if ((fieldType == Schema.DisplayType.STRING || fieldType == Schema.DisplayType.PICKLIST) && !String.isBlank(filter.Field_Value__c)){
                     List<String> splitValues = filter.Field_Value__c.split(HelpMessageConstants.FIELD_VALUE_OR_DELIMITER);
                     system.debug('###splitValues: ' + splitValues);        
                     filterCheck = splitValues.contains(String.valueOf(fieldResult));

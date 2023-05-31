@@ -2,7 +2,7 @@
  * @description       : help messages JS file
  * @author            : daniel@hyphen8.com
  * @group             : 
- * @last modified on  : 01-08-2021
+ * @last modified on  : 31/05/2023
  * @last modified by  : daniel@hyphen8.com
  * Modifications Log 
  * Ver   Date         Author               Modification
@@ -15,6 +15,7 @@ import canViewRecordActions from '@salesforce/apex/HelpMessageController.canView
 import changeMessageStatus from '@salesforce/apex/HelpMessageController.changeMessageStatus';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getRecord, notifyRecordUpdateAvailable  } from "lightning/uiRecordApi";
 
 import labels from './labels';
 export default class helpMessage extends NavigationMixin(LightningElement) {
@@ -22,10 +23,32 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     label = labels;
     
     @api recordId;
+    @api objectApiName;
+    @api selectedIcon = 'utility:help';
+    @api componentTitle = 'Help Messages';
 
     messages;
     errors;
+    expectedWireList;
+    @track wireFieldList = this.fields;
     displayActions = false;
+
+    currentRecord;
+
+    @wire(getRecord, { recordId: "$recordId", fields: '$fields' })
+    wiredRecord({ error, data }) {
+        if (data) {
+            if(null == this.currentRecord){
+                this.currentRecord = data.fields;
+            } else if(JSON.stringify(this.currentRecord) != JSON.stringify(data.fields)) {
+                this.currentRecord = data.fields;
+                this.handleRefresh();
+            }
+        } else if (error) {
+            console.error("error getting record", JSON.stringify(error));
+        }
+    }
+
 
     // method to pull in the messages to display
     handleGetHelpMessages() {
@@ -33,7 +56,11 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             recordId: this.recordId
         })
         .then((results) => {
-            this.messages = results;
+            let resultsJSON = JSON.parse(results);
+            this.messages = resultsJSON.messages;
+            let fieldsArrayJSON = [];
+            resultsJSON.fieldArray.forEach(item => fieldsArrayJSON.push(item.fieldAPIName));
+            this.expectedWireList = fieldsArrayJSON;
             this.errors = undefined;  
         })
         .catch((error) => {
@@ -46,8 +73,9 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     handleCanViewRecordActions() {
         canViewRecordActions({})
         .then((results) => {
-            this.displayActions = results;
-            this.errors = undefined;  
+            let resultsJSON = JSON.parse(results);
+            this.displayActions = resultsJSON.success;
+            this.errors = undefined;
         })
         .catch((error) => {
             this.errors = JSON.stringify(error);
@@ -90,7 +118,6 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
     // handle the view message button
     viewMessage(event){
         let messageId = event.target.value;
-        window.console.log('view message id > ' + messageId);
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
@@ -109,17 +136,18 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             status: 'Published'
         })
         .then((results) => {
-            if(results == 'You have successfully changed the status'){
+            let resultJSON = JSON.parse(results);
+            if(resultJSON.message == 'You have successfully changed the status'){
                 const evt = new ShowToastEvent({
                     title: 'Success',
-                    message: results,
+                    message: resultJSON.message,
                     variant: 'success',
                 });
                 this.dispatchEvent(evt);
             } else {
                 const evt = new ShowToastEvent({
                     title: 'Error',
-                    message: results,
+                    message: resultJSON.message,
                     variant: 'error',
                 });
                 this.dispatchEvent(evt);
@@ -139,17 +167,18 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             status: 'Unpublished'
         })
         .then((results) => {
-            if(results == 'You have successfully changed the status'){
+            let resultJSON = JSON.parse(results);
+            if(resultJSON.message == 'You have successfully changed the status'){
                 const evt = new ShowToastEvent({
                     title: 'Success',
-                    message: results,
+                    message: resultJSON.message,
                     variant: 'success',
                 });
                 this.dispatchEvent(evt);
             } else {
                 const evt = new ShowToastEvent({
                     title: 'Error',
-                    message: results,
+                    message: resultJSON.message,
                     variant: 'error',
                 });
                 this.dispatchEvent(evt);
@@ -159,5 +188,18 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
         .catch((error) => {
             this.errors = JSON.stringify(error);
         });
+    }
+
+
+    // function to support dynamic wire methods with fields driven by apex controller for filters detection of changes
+    get fields() {
+        if (null == this.expectedWireList && null != this.objectApiName) {
+            let baseFieldValue = this.objectApiName + '.Id';
+            return baseFieldValue;
+        } else if(null != this.expectedWireList) {
+            return this.expectedWireList;
+        } else {
+            return 'Id';
+        }
     }
 }

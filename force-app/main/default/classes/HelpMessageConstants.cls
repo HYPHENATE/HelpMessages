@@ -1,9 +1,12 @@
 /**
- * @description     constants class for use throughout the application
- * @author          daniel@hyphen8.com
- * @date            17/04/2020
- * @group           Constants
-*/
+ * @description       : constants class for use throughout the application
+ * @author            : daniel@hyphen8.com
+ * @last modified on  : 04/03/2022
+ * @last modified by  : daniel@hyphen8.com
+ * Modifications Log
+ * Ver      Date            Author                  Modification
+ * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
+**/
 public with sharing class HelpMessageConstants {
 
     /**

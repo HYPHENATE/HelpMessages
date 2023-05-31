@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>50.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <isExposed>true</isExposed>
     <targets>
         <target>lightning__RecordPage</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property label="Display Icon" name="selectedIcon" type="String" default="utility:help" description="Use this field to change the icon being displayed"/>
+            <property label="Display Title" name="componentTitle" type="String" default="Help Messages" description="Set the title for display on the component"/>
+        </targetConfig>
+
+    </targetConfigs>
 </LightningComponentBundle>

@@ -1,11 +1,8 @@
 /**
- * @description       : test class for HelpMessageController
+ * @description       : test class for HelpMessages package
  * @author            : daniel@hyphen8.com
- * @last modified on  : 31/05/2023
+ * @last modified on  : 13-02-2024
  * @last modified by  : daniel@hyphen8.com
- * Modifications Log
- * Ver      Date            Author                  Modification
- * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
 **/
 @isTest
 public with sharing class HelpMessageController_Test {
@@ -64,16 +61,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testgreaterthan() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Opportunity opp = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=acc.Id);
-            insert opp;
-            String messages = HelpMessageController.getHelpMessages(opp.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Opportunity opportunity = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=account.Id);
+            insert opportunity;
+            String messages = HelpMessageController.getHelpMessages(opportunity.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(3, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -81,16 +78,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testgreaterthanequals() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Opportunity opp = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=acc.Id);
-            insert opp;
-            String messages = HelpMessageController.getHelpMessages(opp.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Opportunity opportunity = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=account.Id);
+            insert opportunity;
+            String messages = HelpMessageController.getHelpMessages(opportunity.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(3, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -98,16 +95,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testlessthan() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Opportunity opp = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=acc.Id);
-            insert opp;
-            String messages = HelpMessageController.getHelpMessages(opp.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Opportunity opportunity = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=account.Id);
+            insert opportunity;
+            String messages = HelpMessageController.getHelpMessages(opportunity.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(3, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -115,16 +112,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testlessthanequals() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Opportunity opp = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=acc.Id);
-            insert opp;
-            String messages = HelpMessageController.getHelpMessages(opp.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Opportunity opportunity = new Opportunity(Name='DEMO', StageName='Prospecting',CloseDate=system.today(), Amount=10000.00,AccountId=account.Id);
+            insert opportunity;
+            String messages = HelpMessageController.getHelpMessages(opportunity.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(3, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -132,16 +129,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testequalsstring() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Opportunity opp = new Opportunity(Name='DEMO STRING CHECK', StageName='Prospecting',CloseDate=system.today(), Amount=20000.00,AccountId=acc.Id);
-            insert opp;
-            String messages = HelpMessageController.getHelpMessages(opp.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Opportunity opportunity = new Opportunity(Name='DEMO STRING CHECK', StageName='Prospecting',CloseDate=system.today(), Amount=20000.00,AccountId=account.Id);
+            insert opportunity;
+            String messages = HelpMessageController.getHelpMessages(opportunity.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(4, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -149,16 +146,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testequalsbooolean() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Contact con = new Contact(LastName='DEMO', AccountID=acc.Id);
-            insert con;
-            String messages = HelpMessageController.getHelpMessages(con.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Contact contact = new Contact(LastName='DEMO', AccountId=account.Id);
+            insert contact;
+            String messages = HelpMessageController.getHelpMessages(contact.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(3, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -166,16 +163,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testnotequalsstring(){
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Contact con = new Contact(LastName='DEMO', AccountID=acc.Id, DoNotCall=true);
-            insert con;
-            String messages = HelpMessageController.getHelpMessages(con.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Contact contact = new Contact(LastName='DEMO', AccountId=account.Id, DoNotCall=true);
+            insert contact;
+            String messages = HelpMessageController.getHelpMessages(contact.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(2, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -183,16 +180,16 @@ public with sharing class HelpMessageController_Test {
     */
     @isTest
     static void testnotqualsboolean() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            Contact con = new Contact(LastName='DEMO', AccountID=acc.Id, DoNotCall=true);
-            insert con;
-            String messages = HelpMessageController.getHelpMessages(con.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            Contact contact = new Contact(LastName='DEMO', AccountId=account.Id, DoNotCall=true);
+            insert contact;
+            String messages = HelpMessageController.getHelpMessages(contact.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(2, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
 
@@ -201,10 +198,10 @@ public with sharing class HelpMessageController_Test {
     **/
     @isTest
     static void testAccountOne() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount1');
-            insert acc;
-            String messages = HelpMessageController.getHelpMessages(acc.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount1');
+            insert account;
+            String messages = HelpMessageController.getHelpMessages(account.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(1, messagesList.size(), 'Expected number of responses');
@@ -223,7 +220,7 @@ public with sharing class HelpMessageController_Test {
             String canViewRecordCheck = HelpMessageController.canViewRecordActions();
             Map<String, Object> canViewRecordCheckMap = (Map<String, Object>)JSON.deserializeUntyped(canViewRecordCheck);
             system.assertEquals(true, (Boolean)canViewRecordCheckMap.get('success'), 'We do have the correct permissions');
-        test.stopTest();
+        Test.stopTest();
     }
 
     /**
@@ -231,14 +228,14 @@ public with sharing class HelpMessageController_Test {
     **/
     @isTest
     static void testAccountTwo() {
-        test.startTest();
-            Account acc = new Account(Name='TestAccount2');
-            insert acc;
-            String messages = HelpMessageController.getHelpMessages(acc.Id);
+        Test.startTest();
+            Account account = new Account(Name='TestAccount2');
+            insert account;
+            String messages = HelpMessageController.getHelpMessages(account.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
             System.assertEquals(2, messagesList.size(), 'Expected number of responses');
-        test.stopTest();
+        Test.stopTest();
     }
 
 
@@ -255,7 +252,7 @@ public with sharing class HelpMessageController_Test {
           TimeZoneSidKey='America/New_York', UserName= uniqueString + '@myorg.com');
         insert user;
 
-        system.runAs(user) {
+        System.runAs(user) {
             String canViewRecordCheck = HelpMessageController.canViewRecordActions();
             Map<String, Object> canViewRecordCheckMap = (Map<String, Object>)JSON.deserializeUntyped(canViewRecordCheck);
             system.assertEquals(false, canViewRecordCheckMap.get('success'), 'We do have the correct permissions');

@@ -1,21 +1,20 @@
 /**
- * @description       : help messages JS file
+ * @description       : javascript for core help messages component
  * @author            : daniel@hyphen8.com
- * @group             : 
- * @last modified on  : 31/05/2023
+ * @last modified on  : 13-02-2024
  * @last modified by  : daniel@hyphen8.com
- * Modifications Log 
- * Ver   Date         Author               Modification
- * 1.0   01-08-2021   daniel@hyphen8.com   Initial Version
 **/
 import { LightningElement, track, api, wire } from 'lwc';
 
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getHelpMessages from '@salesforce/apex/HelpMessageController.getHelpMessages';
 import canViewRecordActions from '@salesforce/apex/HelpMessageController.canViewRecordActions';
 import changeMessageStatus from '@salesforce/apex/HelpMessageController.changeMessageStatus';
 import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getRecord, notifyRecordUpdateAvailable  } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
+import { reduceErrors } from 'c/helpMessageUtils';
+import labels from 'c/helpMessageLabels';
 
 import labels from './labels';
 export default class helpMessage extends NavigationMixin(LightningElement) {
@@ -45,7 +44,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
                 this.handleRefresh();
             }
         } else if (error) {
-            console.error("error getting record", JSON.stringify(error));
+            this.showToast('Error accessing record', reduceErrors(error).toString(), 'error');
         }
     }
 
@@ -64,6 +63,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             this.errors = undefined;  
         })
         .catch((error) => {
+            this.showToast('Error getting messages', reduceErrors(error).toString(), 'error');
             this.errors = JSON.stringify(error);
             this.messages = undefined;
         });
@@ -78,6 +78,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             this.errors = undefined;
         })
         .catch((error) => {
+            this.showToast('Error chercking permissions', reduceErrors(error).toString(), 'error');
             this.errors = JSON.stringify(error);
             this.displayActions = undefined;
         });
@@ -155,6 +156,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             this.handleRefresh();
         })
         .catch((error) => {
+            this.showToast('Error publishing messages', reduceErrors(error).toString(), 'error');
             this.errors = JSON.stringify(error);
         });
     }
@@ -186,6 +188,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
             this.handleRefresh();
         })
         .catch((error) => {
+            this.showToast('Error unpublishing messages', reduceErrors(error).toString(), 'error');
             this.errors = JSON.stringify(error);
         });
     }
@@ -201,5 +204,10 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
         } else {
             return 'Id';
         }
+    }
+
+    // generic dispatch toast event
+    showToast(toastTitle, toastMessage, toastVariant){
+       this.dispatchEvent(new ShowToastEvent({title: toastTitle, message: toastMessage, variant: toastVariant}));
     }
 }

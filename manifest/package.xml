@@ -26,7 +26,6 @@
         <name>PathAssistant</name>
     </types>
     <types>
-        <members>Help_Message_Lightning_Page</members>
         <members>Help_UtilityBar</members>
         <name>FlexiPage</name>
     </types>

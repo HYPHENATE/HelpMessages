@@ -1,0 +1,90 @@
+<!--
+  @description       : html for supporting with the configuration of help message filters
+  @author            : daniel@hyphen8.com
+  @last modified on  : 15-02-2024
+  @last modified by  : daniel@hyphen8.com
+-->
+<template>
+    <lightning-card title="Configuration" icon-name="standard:bundle_config">
+        <div class="slds-var-p-horizontal_small">
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-is-relative" style="height:5rem">
+                    <lightning-spinner
+                        alternative-text="Loading..." variant="brand">
+                    </lightning-spinner>
+                </div>
+            </template>
+            <template if:false={isLoading}>
+                <div class="slds-form-element slds-var-m-bottom_small">
+                    <div class="slds-form-element__control">
+                        <lightning-input label="Search for Object" 
+                                            field-level-help="Type into this box to search for the object that you would like this help message to appear on."
+                                            type="search" 
+                                            onfocus={showListOfObjects}
+                                            onchange={searchObjects} 
+                                            value={selectedObjectValue}>
+                        </lightning-input>
+                        <div if:true={objectSearchResults} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                            role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={objectSearchResults} for:item="objectSearchResult">
+                                    <li key={objectSearchResult.value} data-value={objectSearchResult.value} role="presentation" onclick={selectObjectFromResultsResult} class="slds-listbox__item">
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small "
+                                            role="option">
+                                            <span class="slds-media__body">
+                                                <span class="slds-truncate" title={objectSearchResult.label}>
+                                                    {objectSearchResult.label}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-var-m-bottom_small">
+                    <label class="slds-form-element__label">
+                        Select how you want to allow access to this message
+                    </label>
+                    <div class="slds-form-element__control">
+                        <lightning-button-group>
+                            <lightning-button label="All Records" variant={allRecordsBrand} onclick={allRecordsSelected} disabled={disableRecordsValidFor}></lightning-button>
+                            <lightning-button label="By Filter" variant={byFiltersBrand} onclick={byFilterSelected} disabled={disableRecordsValidFor}></lightning-button>
+                        </lightning-button-group>
+                    </div>
+                </div>
+                <template if:true={showConditionManagement}>
+                    <div class="slds-expression">
+                        <div class="slds-expression__options">
+                            <lightning-combobox name="conditionTypeSelection"
+                                                label="Take Action When"
+                                                value={filterType}
+                                                placeholder="Select Filter Condition"
+                                                options={filterConditions}
+                                                disabled={disableFilterConditions}
+                                                onchange={handleFilterSelection}>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                    <ul>
+                        <template for:each={filters} for:item="filter">
+                            <c-help-message-configuration-filter key={filter.id} 
+                                                                    field-list={objectFieldList}
+                                                                    condition={filter}
+                                                                    condition-count={filterCount}
+                                                                    filter-type={filterType}>
+                            </c-help-message-configuration-filter>
+                        </template>
+                    </ul>
+                    <div class="slds-expression__buttons">
+                        <lightning-button icon-name="utility:add" 
+                                            label="Add Condition"
+                                            onclick={handleAddNewFilterCondition}>
+                        </lightning-button>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

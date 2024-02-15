@@ -2,16 +2,110 @@
  * @description       : Controller for the in record help message component
  *                      will return dynamically messages driven by the type of record and filters on the record
  * @author            : daniel@hyphen8.com
- * @last modified on  : 31/05/2023
+ * @last modified on  : 14-02-2024
  * @last modified by  : daniel@hyphen8.com
- * Modifications Log
- * Ver      Date            Author                  Modification
- * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
 **/
+
 public with sharing class HelpMessageController {
 
     public static Set<String> filterFields = new Set<String>();
-   
+    private static Help_Message_Configuration__c helpConfiguration;
+    private static Help_Message_Like__c userLike;
+
+    /**
+    * @description          method to support with the submission of likes against a help message
+    * @param                helpMessageId 
+    **/
+    @AuraEnabled
+    public static void submitLike(String helpMessageId){
+        try {
+            getHelpConfiguration();
+            getUserLikeRecord(helpMessageId);
+            String helpMessageStatus = helpMessageStatus(helpMessageId);
+            if(null == userLike && helpMessageStatus == 'Published' && null != helpConfiguration && helpConfiguration.Enabled_Found_Useful__c){
+                Help_Message_Like__c newLike = new Help_Message_Like__c();
+                newLike.Help_Message__c = helpMessageId;
+                insert newLike;
+            } else if(null != userLike){
+                delete userLike;
+            }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    /**
+    * @description          method to generate the view entry record to support analytics
+    * @param                helpMessageId 
+    **/
+    @AuraEnabled
+    public static void generateViewEntry(String helpMessageId){
+        try {
+            getHelpConfiguration();
+            Boolean hasViewLoggedToday = hasViewHelpToday(helpMessageId);
+            String helpMessageStatus = helpMessageStatus(helpMessageId);
+            if(!hasViewLoggedToday && null != helpConfiguration && helpConfiguration.Enable_Analytics__c && helpMessageStatus == 'Published'){
+                Help_Message_View__c helpMessageView = new Help_Message_View__c();
+                helpMessageView.Help_Message__c = helpMessageId;
+                insert helpMessageView;
+            }
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+        }
+    }
+
+    /**
+    * @description          method to pull out the help configuration analytics custom settings
+    **/
+    private static void getHelpConfiguration(){
+        helpConfiguration = Help_Message_Configuration__c.getOrgDefaults();
+    }
+
+    /**
+    * @description          method to get the help message status
+    * @param                helpMessageId 
+    * @return               String 
+    **/
+    private static String helpMessageStatus(String helpMessageId){
+        return [SELECT Status__c 
+                        FROM Help_Message__c 
+                        WHERE Id=:helpMessageId
+                        LIMIT 1].Status__c;
+    }
+
+    /**
+    * @description          method to check and confirm if the user has viewed the help message today
+    * @param                helpMessageId 
+    * @return               Boolean 
+    **/
+    private static Boolean hasViewHelpToday(String helpMessageId){
+        try {
+            Help_Message_View__c helpMessageView = [SELECT Id FROM Help_Message_View__c
+                                                            WHERE CreatedById=:UserInfo.getUserId()
+                                                            AND Help_Message__c=:helpMessageId
+                                                            AND CreatedDate= TODAY
+                                                            LIMIT 1];
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
+    /**
+    * @description          method to get the current users like record if it exists
+    * @param                helpMessageId 
+    **/
+    private static void getUserLikeRecord(String helpMessageId){
+        try {
+            userLike = [SELECT Id 
+                            FROM Help_Message_Like__c 
+                            WHERE CreatedById=:UserInfo.getUserId() 
+                            AND Help_Message__c=:helpMessageId
+                            LIMIT 1];
+        } catch (Exception e){
+            // no like is found so no action required
+        }
+    }
     /**
      * @description     method that will support the handling of publishing and unpublishing actions
      * @param           recordId
@@ -107,10 +201,13 @@ public with sharing class HelpMessageController {
         List<Help_Message__c> results = new List<Help_Message__c>();
         List<Help_Message__c> withFilters = new List<Help_Message__c>();
         String sObjectType = recordId.getSobjectType().getDescribe().getName();
-        for(Help_Message__c rm : [SELECT Id, Name, Is_Draft__c, Message_Title__c, Message__c, Records_Valid_For__c, Filter_Type__c, Custom_Filter_Logic__c, Status__c, 
+        for(Help_Message__c rm : [SELECT Id, Name, Is_Draft__c, Message_Title__c, Message__c, Records_Valid_For__c, Filter_Type__c, Custom_Filter_Logic__c, Status__c, Views__c, Likes__c,   
                                         (SELECT Id, Name, Type__c, Field_Name__c, Field_Operator__c, Field_Value__c 
                                                                     FROM Help_Message_Filters__r 
-                                                                    ORDER BY CreatedDate) 
+                                                                    ORDER BY CreatedDate),
+                                        (SELECT Id
+                                                FROM Help_Message_Likes__r
+                                                WHERE CreatedById=:UserInfo.getUserId())
                                         FROM Help_Message__c 
                                         WHERE Record_SObjectType__c=:sObjectType AND Status__c IN:statuslist 
                                         ORDER BY Order__c ASC]) {
@@ -138,7 +235,6 @@ public with sharing class HelpMessageController {
                 gen.writeEndObject();
             }
             gen.writeEndArray();
-            // gen.writeObjectField('fieldArray', filterFields);
             gen.writeFieldName('messages');
             gen.writeStartArray();
                 for(Help_Message__c helpMessage:results){
@@ -146,6 +242,18 @@ public with sharing class HelpMessageController {
                         gen.writeIdField('id', helpMessage.Id);
                         gen.writeStringField('title', null != helpMessage.Message_Title__c ? helpMessage.Message_Title__c : '');
                         gen.writeStringField('message', null != helpMessage.Message__c ? helpMessage.Message__c : '');
+                        gen.writeNumberField('viewCount', helpMessage.Views__c);
+                        gen.writeNumberField('likeCount', helpMessage.Likes__c);
+                        List<Help_Message_Like__c> helpMessageLikes = helpMessage.Help_Message_Likes__r;
+                        if(null != helpMessageLikes && helpMessageLikes.size() > 0){
+                            gen.writeStringField('likeLabel', 'Liked');
+                            gen.writeBooleanField('likeIsPressed', true);
+                            gen.writeStringField('likeButtonAssistiveText', 'Press if you no longer find this help message useful');
+                        } else {
+                            gen.writeStringField('likeLabel', 'Like');
+                            gen.writeBooleanField('likeIsPressed', false);
+                            gen.writeStringField('likeButtonAssistiveText', 'Press if you found this help message useful');
+                        }
                         gen.writeBooleanField('isDraft', helpMessage.Is_Draft__c);
 
                     gen.writeEndObject();

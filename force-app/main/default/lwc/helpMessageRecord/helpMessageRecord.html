@@ -1,0 +1,103 @@
+<!--
+  @description       : html for indiviudal help message record output
+  @author            : daniel@hyphen8.com
+  @last modified on  : 14-02-2024
+  @last modified by  : daniel@hyphen8.com
+-->
+<template>
+    <lightning-accordion-section name={helpMessage.id} 
+                                    label={helpMessage.title} 
+                                    onclick={handleAccordSectionClick}>
+        
+        <template if:true={helpMessage.isDraft}>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-var-m-bottom_medium" role="alert">
+                <h2>{label.DraftTextMessage}</h2>
+            </div>
+        </template>
+        
+        <lightning-formatted-rich-text value={helpMessage.message}></lightning-formatted-rich-text>
+        
+        <div class="slds-grid slds-gutters slds-var-m-top_small">
+            <div class="slds-col">
+                <div class="slds-clearfix">
+                    <div class="slds-float_left">
+                        <lightning-button-group>
+                            <template if:true={displayLikeCount}>
+                                <button title={helpMessage.likeButtonAssistiveText}
+                                        class="slds-button_reset slds-post__footer-action slds-var-m-right_xx-small" 
+                                        aria-pressed={helpMessage.likeIsPressed} 
+                                        onclick={likeHelpMessage}>
+                                    <lightning-icon icon-name="utility:like" 
+                                                    alternative-text={helpMessage.likeLabel} 
+                                                    size="x-small"
+                                                    title={helpMessage.likeLabel}>
+                                    </lightning-icon>{helpMessage.likeLabel}
+                                </button>
+                            </template>
+                            <template if:true={displayActions}>
+                                <lightning-button-icon icon-name="utility:edit"
+                                                        variant="bare" 
+                                                        size="medium" 
+                                                        alternative-text={label.HelpMessageFEEditLabel}
+                                                        tooltip={label.HelpMessageFEEditTooltip}
+                                                        title={label.HelpMessageFEEditLabel}
+                                                        onclick={editMessage}>
+                                    <label>{label.HelpMessageFEEditLabel}</label>
+                                </lightning-button-icon>
+                                <lightning-button-icon icon-name="utility:preview" 
+                                                        variant="bare" 
+                                                        size="medium" 
+                                                        alternative-text={label.HelpMessageFEViewLabel}
+                                                        tooltip={label.HelpMessageFEViewTooltip}
+                                                        title={label.HelpMessageFEViewLabel}
+                                                        class="slds-var-m-left_xx-small" 
+                                                        onclick={viewMessage}>
+                                    <label>{label.HelpMessageFEViewLabel}</label>
+                                </lightning-button-icon>
+                                <template if:true={helpMessage.isDraft}>
+                                    <lightning-button-icon icon-name="utility:check" 
+                                                            variant="bare" 
+                                                            size="medium" 
+                                                            alternative-text={label.HelpMessageFEPublishLabel}
+                                                            tooltip={label.HelpMessageFEPublishTooltip}
+                                                            title={label.HelpMessageFEPublishLabel}
+                                                            class="slds-var-m-left_xx-small" 
+                                                            onclick={publishMessage}>
+                                        <label>{label.HelpMessageFEPublishLabel}</label>
+                                    </lightning-button-icon>
+                                </template>
+                                <template if:false={helpMessage.isDraft}>
+                                    <lightning-button-icon icon-name="utility:close" 
+                                                            variant="bare" 
+                                                            size="medium" 
+                                                            alternative-text={label.HelpMessageFEUnpublishLabel}
+                                                            tooltip={label.HelpMessageFEUnpublishTooltip}
+                                                            title={label.HelpMessageFEUnpublishLabel}
+                                                            class="slds-var-m-left_xx-small" 
+                                                            onclick={unpublishMessage}>
+                                        <label>{label.HelpMessageFEUnpublishLabel}</label>
+                                    </lightning-button-icon>
+                                </template>
+                            </template>
+                        </lightning-button-group>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col">
+                <ul class="slds-list_horizontal slds-has-dividers_right slds-text-title slds-float_right slds-var-m-top_xx-small">
+                    <template if:true={displayLikeCount}>    
+                        <li class="slds-item">
+                            {helpMessage.likeCount} {likeCountText}
+                        </li>
+                    </template>
+                    <template if:true={displayViewCount}>
+                        <li class="slds-item">
+                            {helpMessage.viewCount} {viewCountText}
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+
+    </lightning-accordion-section>  
+</template>

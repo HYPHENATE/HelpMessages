@@ -9,6 +9,38 @@
         <value>You are viewing this record as an Editor. This is a draft message, in order for all staff to access this message it must be published.</value>
     </labels>
     <labels>
+        <fullName>HelpMessageLike</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HelpMessageLike</shortDescription>
+        <value>Like</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageLikes</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HelpMessageLikes</shortDescription>
+        <value>Likes</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageView</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HelpMessageView</shortDescription>
+        <value>View</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageViews</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HelpMessageViews</shortDescription>
+        <value>Views</value>
+    </labels>
+    <labels>
         <fullName>NoHelpMessagesAvailable</fullName>
         <categories>HelpMessages</categories>
         <language>en_US</language>

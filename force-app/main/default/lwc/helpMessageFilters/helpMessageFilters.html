@@ -1,0 +1,19 @@
+<!--
+  @description       : html for the help message filters configuration component
+  @author            : daniel@hyphen8.com
+  @last modified on  : 13-02-2024
+  @last modified by  : daniel@hyphen8.com
+-->
+<template>
+    <lightning-card title="Help Message Filters" icon-name="standard:filter_criteria">
+        <div class="slds-var-p-horizontal_small">
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-is-relative" style="height:5rem">
+                    <lightning-spinner
+                        alternative-text="Loading..." variant="brand">
+                    </lightning-spinner>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

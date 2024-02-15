@@ -4,6 +4,10 @@
         <apexClass>HelpMessageController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>Help_Message_Configuration__c</name>
+    </customSettingAccesses>
     <description>Apply this to users who should be able to see the messages on records</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -42,6 +46,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Help_Message__c.Likes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Help_Message__c.Message_Title__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -70,6 +79,11 @@
         <field>Help_Message__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Help_Message__c.Views__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Help Message Viewer</label>
     <objectPermissions>
@@ -79,6 +93,24 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Help_Message_Filter__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Help_Message_Like__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Help_Message_View__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

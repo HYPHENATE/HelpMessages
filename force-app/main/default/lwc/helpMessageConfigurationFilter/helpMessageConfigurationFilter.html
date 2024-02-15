@@ -1,0 +1,75 @@
+<!-- sldsValidatorIgnore -->
+<!--
+  @description       : html for support managing setup and configuration of help message configuration records
+  @author            : daniel@hyphen8.com
+  @last modified on  : 15-02-2024
+  @last modified by  : daniel@hyphen8.com
+-->
+<template>
+    <li class="slds-expression__row">
+        <fieldset>
+            <legend class="slds-expression__legend">
+                <template if:true={displayConditionCount}>
+                    <span>{conditionValue}</span>
+                </template>
+                <span class="slds-assistive-text">Condition {condition.order}</span>
+            </legend>
+            <div class="slds-grid slds-gutters_xx-small">
+                <div class="slds-col slds-grow-none"> 
+                    <div class="slds-form-element slds-var-m-bottom_small">
+                        <div class="slds-form-element__control">
+                            <lightning-input label="Search for Field" 
+                                                type="search" 
+                                                onfocus={showListOfField}
+                                                onchange={searchFields} 
+                                                value={selectedFieldLabel}>
+                            </lightning-input>
+                            <div if:true={fieldSearchResults} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                    <template for:each={fieldSearchResults} for:item="fieldSearchResult">
+                                        <li key={fieldSearchResult.value} data-value={fieldSearchResult.value} role="presentation" onclick={selectFieldFromResultsResult} class="slds-listbox__item">
+                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small "
+                                                role="option">
+                                                <span class="slds-media__body">
+                                                    <span class="slds-truncate" title={fieldSearchResult.label}>
+                                                        {fieldSearchResult.label}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-grow-none">
+                    <lightning-combobox name="operatorSelection"
+                                label="Operator"
+                                value={selectededOperator}
+                                placeholder="Select operator"
+                                options={operatorOptions}
+                                disabled={operatorDisabled}
+                                onchange={handleOperatorSelection}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-grow-none">
+                </div>
+                <div class="slds-col slds-grow-none">
+                    <div class="slds-form-element">
+                        <span class="slds-form-element__label">Action</span>
+                        <div class="slds-form-element__control">
+                            <lightning-button-icon icon-name="utility:delete" 
+                                                    title="Delete Condition"
+                                                    alternative-text="Delete Condition"
+                                                    disabled={disableDelete}
+                                                    tooltip="Deleting this condition will start a background process to review the existing order and reorder, if you have custom logic in place you will need to review this">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </li>
+</template>

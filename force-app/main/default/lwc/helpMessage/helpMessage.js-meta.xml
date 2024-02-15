@@ -9,6 +9,8 @@
         <targetConfig targets="lightning__RecordPage">
             <property label="Display Icon" name="selectedIcon" type="String" default="utility:help" description="Use this field to change the icon being displayed"/>
             <property label="Display Title" name="componentTitle" type="String" default="Help Messages" description="Set the title for display on the component"/>
+            <property label="Display View Count" name="displayViewCount" type="Boolean" default="False" description="If you have configured your custom settings to store views you can also display the view count on the component"/>
+            <property label="Display Like Count" name="displayLikeCount" type="Boolean" default="False" description="If you have configured your custom settings to store a like count you can also display the count on the component, setting this as true will also control displaying the like icon"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

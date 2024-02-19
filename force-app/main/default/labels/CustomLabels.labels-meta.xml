@@ -47,5 +47,69 @@
         <protected>false</protected>
         <shortDescription>NoHelpMessagesAvailable</shortDescription>
         <value>There is no help published for this record at this time.</value>
+    </labels> 
+    <labels>
+        <fullName>HelpMessageFEViewLabel</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEViewLabel</shortDescription>
+        <value>View Help Message</value>
     </labels>
+    <labels>
+        <fullName>HelpMessageFEViewTooltip</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEViewTooltip</shortDescription>
+        <value>Press this button if you want to view this Help Message within the Help Application</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEUnpublishLabel</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEUnpublishLabel</shortDescription>
+        <value>Unpublish Help Message</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEUnpublishTooltip</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEUnpublishTooltip</shortDescription>
+        <value>Press this button if you want to remove this Help Message from view, you can republish it by going into the Help Application</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEEditTooltip</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEEditTooltip</shortDescription>
+        <value>Press this button if you want to edit this Help Message</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEEditLabel</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEEditLabel</shortDescription>
+        <value>Edit Help Message</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEPublishLabel</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEPublishLabel</shortDescription>
+        <value>Publish Help Message</value>
+    </labels>
+    <labels>
+        <fullName>HelpMessageFEPublishTooltip</fullName>
+        <categories>HelpMessages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HelpMessageFEPublishTooltip</shortDescription>
+        <value>Press this button if you want to Publish this Help Message</value>
+    </labels> 
 </CustomLabels>

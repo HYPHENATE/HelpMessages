@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Views__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will display the number of views that a Help Message has had, it will only populate data if analytics has been configured by your system administrator.</inlineHelpText>
+    <label>Views</label>
+    <summaryForeignKey>Help_Message_View__c.Help_Message__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

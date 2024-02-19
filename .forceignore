@@ -10,3 +10,7 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# SF Profiles
+force-app/main/default/profiles/Admin.profile-meta.xml
+force-app/main/default/profiles/B2B Reordering Portal Buyer Profile.profile-meta.xml

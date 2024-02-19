@@ -37,3 +37,5 @@ Thumbs.db
 ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
+force-app/main/default/profiles/Admin.profile-meta.xml
+force-app/main/default/profiles/B2B Reordering Portal Buyer Profile.profile-meta.xml

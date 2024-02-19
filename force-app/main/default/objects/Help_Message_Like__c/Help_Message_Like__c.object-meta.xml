@@ -143,25 +143,25 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>This object is used for storing dynamically accessible help / guidance messages for display within the application</description>
+    <description>This object is used to store who has liked or found this help message useful, it is then aggregated onto the Help Message record. You will need to configure the custom settings for this to be used.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Help Message</label>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>Help Message Like</label>
     <nameField>
-        <label>Help Message Name</label>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <displayFormat>HMLID{000000000}</displayFormat>
+        <label>Help Message Like Id</label>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Help Messages</pluralLabel>
+    <pluralLabel>Help Message Likes</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

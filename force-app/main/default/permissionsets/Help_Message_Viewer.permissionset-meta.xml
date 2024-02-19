@@ -4,10 +4,6 @@
         <apexClass>HelpMessageController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customSettingAccesses>
-        <enabled>true</enabled>
-        <name>Help_Message_Configuration__c</name>
-    </customSettingAccesses>
     <description>Apply this to users who should be able to see the messages on records</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -22,6 +18,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Help_Message_Filter__c.Field_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Help_Message_Filter__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -106,7 +107,7 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
-        <allowDelete>false</allowDelete>
+        <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>

@@ -143,25 +143,25 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>This object is used for storing dynamically accessible help / guidance messages for display within the application</description>
+    <description>Object used to support analytics within the application, when configured correctly each help message will store who has view the help message and aggregate a total views onto the help message</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Help Message</label>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>Help Message View</label>
     <nameField>
-        <label>Help Message Name</label>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <displayFormat>HMVID{000000000}</displayFormat>
+        <label>Help Message View Id</label>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Help Messages</pluralLabel>
+    <pluralLabel>Help Message Views</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

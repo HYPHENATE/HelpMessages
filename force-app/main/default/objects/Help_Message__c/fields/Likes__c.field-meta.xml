@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Likes__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will display the number of people who have liked or found this help message useful. It will only display data if your administrators has configured your application to support tracking of this information,</inlineHelpText>
+    <label>Likes</label>
+    <summaryForeignKey>Help_Message_Like__c.Help_Message__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

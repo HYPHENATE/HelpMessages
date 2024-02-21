@@ -1,7 +1,7 @@
 <!--
   @description       : html for supporting with the configuration of help message filters
   @author            : daniel@hyphen8.com
-  @last modified on  : 15-02-2024
+  @last modified on  : 21/02/2024
   @last modified by  : daniel@hyphen8.com
 -->
 <template>
@@ -49,41 +49,67 @@
                     </label>
                     <div class="slds-form-element__control">
                         <lightning-button-group>
-                            <lightning-button label="All Records" variant={allRecordsBrand} onclick={allRecordsSelected} disabled={disableRecordsValidFor}></lightning-button>
-                            <lightning-button label="By Filter" variant={byFiltersBrand} onclick={byFilterSelected} disabled={disableRecordsValidFor}></lightning-button>
+                            <lightning-button label="All Records" 
+                                                value="All" 
+                                                variant={allRecordsBrand} 
+                                                disabled={disableFilterByAction}
+                                                onclick={filterByOptionSelected}>
+                            </lightning-button>
+                            <lightning-button label="By Filter" 
+                                                value="By Filter" 
+                                                variant={byFiltersBrand} 
+                                                disabled={disableFilterByAction}
+                                                onclick={filterByOptionSelected}>
+                            </lightning-button>
                         </lightning-button-group>
                     </div>
                 </div>
-                <template if:true={showConditionManagement}>
-                    <div class="slds-expression">
-                        <div class="slds-expression__options">
-                            <lightning-combobox name="conditionTypeSelection"
-                                                label="Take Action When"
-                                                value={filterType}
-                                                placeholder="Select Filter Condition"
-                                                options={filterConditions}
-                                                disabled={disableFilterConditions}
-                                                onchange={handleFilterSelection}>
-                            </lightning-combobox>
+                <div class="slds-expression">
+                    <div class="slds-expression__options">
+                        <lightning-combobox name="conditionTypeSelection"
+                                            label="Take Action When"
+                                            value={filterType}
+                                            placeholder="Select Filter Condition"
+                                            options={filterConditions}
+                                            disabled={disableTakeActionWhenPicklist}
+                                            onchange={handleFilterSelection}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+                <template if:true={isUsingCustomLogic}>
+                    <div class="slds-expression__custom-logic">
+                        <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="customLogicInput">Custom Logic</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" 
+                                    class="slds-input" 
+                                    value={customLogic}
+                                    onblur={handleCustomLogicUpdate} />
+                        </div>
                         </div>
                     </div>
-                    <ul>
-                        <template for:each={filters} for:item="filter">
-                            <c-help-message-configuration-filter key={filter.id} 
-                                                                    field-list={objectFieldList}
-                                                                    condition={filter}
-                                                                    condition-count={filterCount}
-                                                                    filter-type={filterType}>
-                            </c-help-message-configuration-filter>
-                        </template>
-                    </ul>
-                    <div class="slds-expression__buttons">
-                        <lightning-button icon-name="utility:add" 
-                                            label="Add Condition"
-                                            onclick={handleAddNewFilterCondition}>
-                        </lightning-button>
-                    </div>
                 </template>
+                <ul>
+                    <template for:each={filters} for:item="filter">
+                        <c-help-message-configuration-filter key={filter.id} 
+                                                            field-list={objectFieldList}
+                                                            condition={filter}
+                                                            condition-count={filterCount}
+                                                            disable-filter-conditions={disableFilterConditions}
+                                                            filter-type={filterType}
+                                                            ondeletingcondition={handleDisableInputDuringDelete}
+                                                            ondeletedcondition={handleRefreshDataAfterDelete}
+                                                            onerrordeleting={handleEnableInputAfterDelete}>
+                        </c-help-message-configuration-filter>
+                    </template>
+                </ul>
+                <div class="slds-expression__buttons">
+                    <lightning-button icon-name="utility:add" 
+                                        label="Add Condition"
+                                        disabled={disableAddCondition}
+                                        onclick={handleAddNewFilterCondition}>
+                    </lightning-button>
+                </div>
             </template>
         </div>
     </lightning-card>

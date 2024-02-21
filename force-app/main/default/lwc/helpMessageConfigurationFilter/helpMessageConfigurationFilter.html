@@ -2,7 +2,7 @@
 <!--
   @description       : html for support managing setup and configuration of help message configuration records
   @author            : daniel@hyphen8.com
-  @last modified on  : 15-02-2024
+  @last modified on  : 21/02/2024
   @last modified by  : daniel@hyphen8.com
 -->
 <template>
@@ -22,6 +22,7 @@
                                                 type="search" 
                                                 onfocus={showListOfField}
                                                 onchange={searchFields} 
+                                                disabled={disableFilterConditions}
                                                 value={selectedFieldLabel}>
                             </lightning-input>
                             <div if:true={fieldSearchResults} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
@@ -64,6 +65,7 @@
                                                     title="Delete Condition"
                                                     alternative-text="Delete Condition"
                                                     disabled={disableDelete}
+                                                    onclick={handleDeleteOfFilter}
                                                     tooltip="Deleting this condition will start a background process to review the existing order and reorder, if you have custom logic in place you will need to review this">
                             </lightning-button-icon>
                         </div>

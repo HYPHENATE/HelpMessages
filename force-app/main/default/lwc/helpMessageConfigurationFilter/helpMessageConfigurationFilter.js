@@ -1,16 +1,22 @@
 /**
  * @description       : javascript file for support with management of the help message configuration filters
  * @author            : daniel@hyphen8.com
- * @last modified on  : 15-02-2024
+ * @last modified on  : 21/02/2024
  * @last modified by  : daniel@hyphen8.com
 **/
 import { LightningElement, api } from 'lwc';
+
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import deleteFilterCondition from '@salesforce/apex/HelpMessageConfigurationFilters.deleteConditionFilter';
+import updateFilterFields from '@salesforce/apex/HelpMessageConfigurationFilters.handleSaveFilterValues';
+import { reduceErrors } from 'c/helpMessageUtils';
 
 export default class HelpMessageConfigurationFilter extends LightningElement {
     @api condition;
     @api fieldList;
     @api filterType;
     @api conditionCount;
+    @api disableFilterConditions;
     selectededOperator;
     selectedFieldAPIName;
     selectedFieldLabel;
@@ -18,7 +24,7 @@ export default class HelpMessageConfigurationFilter extends LightningElement {
     fieldSearchResults;
     
     get operatorDisabled(){
-        if(this.selectedFieldAPIName){
+        if(this.selectedFieldAPIName && !this.disableFilterConditions){
             return false;
         } else {
             return true;
@@ -60,7 +66,7 @@ export default class HelpMessageConfigurationFilter extends LightningElement {
     }
 
     get disableDelete(){
-        if(this.condition.order == 1 && this.conditionCount == 1){
+        if((this.condition.order == 1 && this.conditionCount == 1) || this.disableFilterConditions){
             return true;
         } else {
             return false;
@@ -98,5 +104,41 @@ export default class HelpMessageConfigurationFilter extends LightningElement {
         if (!this.fieldSearchResults) {
             this.fieldSearchResults = this.fieldList;
         }
+    }
+
+    handleDeleteOfFilter() {
+        this.dispatchEventFunction('deletingcondition');
+        deleteFilterCondition({
+            messageFilterId: this.condition.id
+        })
+        .then((results) => {
+            this.dispatchEventFunction('deletedcondition');
+        })
+        .catch((error) => {
+            this.dispatchEventFunction('errordeleting');
+            this.showToast('Error deleting filter condition', reduceErrors(error).toString(), 'error');
+        });
+    }
+
+    handleUpdateFilterFields(fieldAPIName, filterValue) {
+        updateFilterFields({
+            helpMessageFilterId: this.condition.id,
+            fieldAPIName: fieldAPIName,
+            filterValue: filterValue
+        })
+        .then((results) => {})
+        .catch((error) => {
+            this.showToast('Error saving value', reduceErrors(error).toString(), 'error');
+        });
+    }
+
+    // generic dispatch toast event
+    showToast(toastTitle, toastMessage, toastVariant){
+       this.dispatchEvent(new ShowToastEvent({title: toastTitle, message: toastMessage, variant: toastVariant}));
+    }
+
+    // generic dispatch event function
+    dispatchEventFunction(eventName, eventDetail) {
+       this.dispatchEvent(new CustomEvent(eventName, { detail: eventDetail }));
     }
 }

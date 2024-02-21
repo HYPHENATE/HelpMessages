@@ -295,7 +295,13 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-590bd551-bee9-4cc8-8d79-ad3701faffa1</name>
+        <itemInstances>
+            <componentInstance>
+                <componentName>helpMessageConfiguration</componentName>
+                <identifier>c_helpMessageConfiguration</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-16c13c90-4541-44d9-925e-728408b4fb1d</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -372,12 +378,8 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-590bd551-bee9-4cc8-8d79-ad3701faffa1</value>
+                    <value>Facet-16c13c90-4541-44d9-925e-728408b4fb1d</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Draft__c</fullName>
-    <externalId>false</externalId>
-    <formula>ISPICKVAL(Status__c, &#39;Draft&#39;)</formula>
+    <formula>ISPICKVAL(Status__c, &apos;Draft&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Draft</label>
     <trackHistory>false</trackHistory>

@@ -4,8 +4,8 @@
       "path": "force-app",
       "default": true,
       "package": "HelpMessages",
-      "versionName": "v1.1",
-      "versionNumber": "1.1.0.NEXT",
+      "versionName": "v1.2",
+      "versionNumber": "1.2.0.NEXT",
       "apexTestAccess": {
         "permissionSets": [
           "Help_Message_Editor",
@@ -16,11 +16,12 @@
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "50.0",
+  "sourceApiVersion": "62.0",
   "packageAliases": {
     "HelpMessages": "0Ho67000000TN4TCAW",
     "HelpMessages@1.0.0-1": "04t67000000SaF5AAK",
     "HelpMessages@1.0.0-2": "04t67000000SaW6AAK",
-    "HelpMessages@1.1.0-1": "04t67000000MfzFAAS"
+    "HelpMessages@1.1.0-1": "04t67000000MfzFAAS",
+    "HelpMessages@1.2.0-1": "04tQB000001N68zYAC"
   }
 }

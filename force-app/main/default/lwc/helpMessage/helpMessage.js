@@ -57,7 +57,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
         })
         .then((results) => {
             let resultsJSON = JSON.parse(results);
-            this.messages = resultsJSON.messages;
+            this.messages = this.sortMessages(resultsJSON.messages);
             let fieldsArrayJSON = [];
             resultsJSON.fieldArray.forEach(item => fieldsArrayJSON.push(item.fieldAPIName));
             this.expectedWireList = fieldsArrayJSON;
@@ -85,7 +85,7 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
 
     // check to see if there were any messages
     get hasAnyMessageResults() {
-        return this.messages.length > 0;
+        return Array.isArray(this.messages) && this.messages.length > 0;
     }
 
     connectedCallback() {
@@ -201,5 +201,28 @@ export default class helpMessage extends NavigationMixin(LightningElement) {
         } else {
             return 'Id';
         }
+    }
+
+    sortMessages(messages) {
+        if (!Array.isArray(messages)) {
+            return messages;
+        }
+
+        return messages
+            .map((message, index) => ({ message, index }))
+            .sort((a, b) => {
+                const orderA = Number.parseFloat(a.message?.order);
+                const orderB = Number.parseFloat(b.message?.order);
+
+                const normalizedA = Number.isFinite(orderA) ? orderA : Number.MAX_SAFE_INTEGER;
+                const normalizedB = Number.isFinite(orderB) ? orderB : Number.MAX_SAFE_INTEGER;
+
+                if (normalizedA !== normalizedB) {
+                    return normalizedA - normalizedB;
+                }
+
+                return a.index - b.index;
+            })
+            .map(({ message }) => message);
     }
 }

@@ -1,32 +1,25 @@
 /**
- * @description       : Helper class to improve the readability and maintability of the HelpMessageController class
- * @author            : daniel@hyphen8.com
- * @last modified on  : 31/05/2023
- * @last modified by  : daniel@hyphen8.com
- * Modifications Log
- * Ver      Date            Author                  Modification
- * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
+* @description       : Helper class to improve the readability and maintability of the HelpMessageController class
+* @author            : daniel@hyphen8.com
+* @last modified on  : 13-04-2026
+* @last modified by  : daniel@hyphen8.com
 **/
-@SuppressWarnings('PMD.CognitiveComplexity')
 public with sharing class HelpMessageHelper {
 
-
     /**
-     * @description     getSObjectFieldTypeRelationship Helper to process getting field types on relationships
-     * @param           objecttype 
-     * @param           sOQLFields 
-     * @return          DisplayType
-    */
+    * @description     getSObjectFieldTypeRelationship Helper to process getting field types on relationships
+    * @param           objecttype
+    * @param           sOQLFields
+    * @return          DisplayType
+    **/
     public static DisplayType getSObjectFieldTypeRelationship(SObjectType objectType, List<String> sOQLFields) {
         DisplayType fieldType = null;
         string sOQLRelationship = sOQLFields.remove(0);
         Map<String, Schema.SObjectField> fsMap =  objectType.getDescribe().fields.getMap();
         for(Schema.SObjectField fld : fsMap.values()) {
             DescribeFieldResult dfr = fld.getDescribe();
-            if(dfr.getRelationshipName()==sOQLRelationship) 
-            {
-                if(!dfr.isNamePointing()) 
-                {
+            if(dfr.getRelationshipName()==sOQLRelationship){
+                if(!dfr.isNamePointing()){
                     List<Schema.sObjectType> rels = dfr.getReferenceTo();
                     fieldType = getSObjectFieldType(rels[0], String.join(sOQLFields, '.'));
                 }
@@ -37,12 +30,12 @@ public with sharing class HelpMessageHelper {
     }
     
     /**
-     * @description     getHelpFilterMessages Helper to process filters on help messages
-     * @param           withFilters 
-     * @param           sObjectType 
-     * @param           recordId 
-     * @return          List<Help_Message__c>
-    */
+    * @description     getHelpFilterMessages Helper to process filters on help messages
+    * @param           withFilters
+    * @param           sObjectType
+    * @param           recordId
+    * @return          List<Help_Message__c>
+    **/
     public static List<Help_Message__c> getHelpFilterMessages(List<Help_Message__c> withFilters, string sObjectType, string recordId){
         List<Help_Message__c> results = new List<Help_Message__c>();
         Set<String> recordFields = new Set<String>();
@@ -68,12 +61,12 @@ public with sharing class HelpMessageHelper {
     }
     
     /**
-    * @description  Will take in a field name which can be a referenced field e.g Object.RecordType.DeveloperName 
+    * @description  Will take in a field name which can be a referenced field e.g Object.RecordType.DeveloperName
     *               and parse the object dynamically and return the value of that field from the record supplied
     * @param        record
     * @param        sOQLField
-    * @return       Object 
-    */
+    * @return       Object
+    **/
     public static Object getSObjectField(sObject record, string sOQLField) {
         Object result = null;
         if (sOQLField != null) {
@@ -93,15 +86,13 @@ public with sharing class HelpMessageHelper {
         return result;        
     }
 
-
     /**
     * @description  getSObjectFieldType - Will take in a field name which can be a referenced field e.g Object.RecordType.DeveloperName and parse the object dynamically and return the fieldType of the final field
     * @param        objectType
     * @param        sOQLField
     * @return       DisplayType
     */
-    public static DisplayType getSObjectFieldType(SObjectType objectType, string sOQLField) 
-    {        
+    public static DisplayType getSObjectFieldType(SObjectType objectType, string sOQLField){        
         DisplayType fieldType = null;
         List<String> sOQLFields = sOQLField.Split('\\.');
         if(sOQLFields.size() == 1) {
@@ -115,14 +106,13 @@ public with sharing class HelpMessageHelper {
     }
 
     /**
-     * @description     fieldFilterMatch - method support the validaty of the filter logic
-     * @param           record
-     * @param           filterLogic 
-     * @param           filters
-     * @return          booloean
-    */
-    public static boolean fieldFilterMatch(SObject record, String filterLogic, List<Help_Message_Filter__c> filters) 
-    {
+    * @description     fieldFilterMatch - method support the validaty of the filter logic
+    * @param           record
+    * @param           filterLogic
+    * @param           filters
+    * @return          boolean
+    **/
+    public static Boolean fieldFilterMatch(SObject record, String filterLogic, List<Help_Message_Filter__c> filters){
         boolean result = false;
         if(filterLogic==HelpMessageConstants.FILTER_LOGIC_OR) {
             result = false;
@@ -147,9 +137,9 @@ public with sharing class HelpMessageHelper {
     * @param        record
     * @param        fieldType
     * @return       boolean
-    */
-    public static boolean handlefilterchecks(Help_Message_Filter__c filter, SObject record, DisplayType fieldType) {
-        boolean filterCheck;
+    **/
+    public static Boolean handlefilterchecks(Help_Message_Filter__c filter, SObject record, DisplayType fieldType) {
+        Boolean filterCheck;
         if(filter.Field_Operator__c==HelpMessageConstants.FIELD_OPERATOR_EQUALS) {
             Object fieldResult = HelpMessageHelper.getSObjectField(record, filter.Field_Name__c);
             if (fieldType == Schema.DisplayType.BOOLEAN) {

@@ -1,11 +1,8 @@
 /**
- * @description       : test class for HelpMessageController
- * @author            : daniel@hyphen8.com
- * @last modified on  : 31/05/2023
- * @last modified by  : daniel@hyphen8.com
- * Modifications Log
- * Ver      Date            Author                  Modification
- * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
+* @description       : test class for HelpMessageController
+* @author            : daniel@hyphen8.com
+* @last modified on  : 13-04-2026
+* @last modified by  : daniel@hyphen8.com
 **/
 @isTest
 public with sharing class HelpMessageController_Test {
@@ -60,8 +57,8 @@ public with sharing class HelpMessageController_Test {
 
 
     /**
-     * @description testing a greater than filter
-    */
+    * @description testing a greater than filter
+    **/
     @isTest
     static void testgreaterthan() {
         test.startTest();
@@ -72,13 +69,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(opp.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(3, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(3, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a greater than or equals filter
-    */
+    * @description testing a greater than or equals filter
+    **/
     @isTest
     static void testgreaterthanequals() {
         test.startTest();
@@ -89,13 +86,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(opp.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(3, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(3, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a less than filter
-    */
+    * @description testing a less than filter
+    **/
     @isTest
     static void testlessthan() {
         test.startTest();
@@ -106,13 +103,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(opp.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(3, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(3, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a less than or equals filter
-    */
+    * @description testing a less than or equals filter
+    **/
     @isTest
     static void testlessthanequals() {
         test.startTest();
@@ -123,13 +120,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(opp.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(3, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(3, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a equals string filter
-    */
+    * @description testing a equals string filter
+    **/
     @isTest
     static void testequalsstring() {
         test.startTest();
@@ -140,13 +137,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(opp.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(4, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(4, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a equals boolean filter
-    */
+    * @description testing a equals boolean filter
+    **/
     @isTest
     static void testequalsbooolean() {
         test.startTest();
@@ -157,13 +154,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(con.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(3, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(3, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a not equals string filter
-    */
+    * @description testing a not equals string filter
+    **/
     @isTest
     static void testnotequalsstring(){
         test.startTest();
@@ -174,13 +171,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(con.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(2, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(2, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
     /**
-     * @description testing a not equals boolean filter
-    */
+    * @description testing a not equals boolean filter
+    **/
     @isTest
     static void testnotqualsboolean() {
         test.startTest();
@@ -191,7 +188,7 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(con.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(2, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(2, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
@@ -207,22 +204,22 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(acc.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(1, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(1, messagesList.size(), 'Expected number of responses');
             ID helpmessage = [SELECT Id 
                                     FROM Help_Message__c 
                                     LIMIT 1].Id;
             String publishHelpMessage = HelpMessageController.changeMessageStatus(helpmessage, 'Published');
             Map<String, Object> publishHelpMessageMap = (Map<String, Object>)JSON.deserializeUntyped(publishHelpMessage);
-            system.assertEquals('You have successfully changed the status', publishHelpMessageMap.get('message'), 'We got the correct message back');
+            Assert.areEqual('You have successfully changed the status', publishHelpMessageMap.get('message'), 'We got the correct message back');
             String unPublishHelpMessage = HelpMessageController.changeMessageStatus(helpmessage, 'Unpublished');
             Map<String, Object> unPublishHelpMessageMap = (Map<String, Object>)JSON.deserializeUntyped(unPublishHelpMessage);
-            system.assertEquals('You have successfully changed the status', unPublishHelpMessageMap.get('message'), 'We got the correct message back');
+            Assert.areEqual('You have successfully changed the status', unPublishHelpMessageMap.get('message'), 'We got the correct message back');
             String helpMessageError = HelpMessageController.changeMessageStatus(null, null);
             Map<String, Object> helpMessageErrorMap = (Map<String, Object>)JSON.deserializeUntyped(helpMessageError);
-            system.assertNotEquals('You have successfully changed the status', helpMessageErrorMap.get('message'), 'We did not get the correct message back');
+            Assert.areNotEqual('You have successfully changed the status', helpMessageErrorMap.get('message'), 'We did not get the correct message back');
             String canViewRecordCheck = HelpMessageController.canViewRecordActions();
             Map<String, Object> canViewRecordCheckMap = (Map<String, Object>)JSON.deserializeUntyped(canViewRecordCheck);
-            system.assertEquals(true, (Boolean)canViewRecordCheckMap.get('success'), 'We do have the correct permissions');
+            Assert.areEqual(true, (Boolean)canViewRecordCheckMap.get('success'), 'We do have the correct permissions');
         test.stopTest();
     }
 
@@ -237,11 +234,13 @@ public with sharing class HelpMessageController_Test {
             String messages = HelpMessageController.getHelpMessages(acc.Id);
             Map<String, Object> messagesMap = (Map<String, Object>)JSON.deserializeUntyped(messages);
             List<Object> messagesList = (List<Object>) messagesMap.get('messages');
-            System.assertEquals(2, messagesList.size(), 'Expected number of responses');
+            Assert.areEqual(2, messagesList.size(), 'Expected number of responses');
         test.stopTest();
     }
 
-
+    /**
+    * @description      test processing against account with parent relationship
+    **/
     @isTest 
     static void permissionsTest() {
 
@@ -258,9 +257,9 @@ public with sharing class HelpMessageController_Test {
         system.runAs(user) {
             String canViewRecordCheck = HelpMessageController.canViewRecordActions();
             Map<String, Object> canViewRecordCheckMap = (Map<String, Object>)JSON.deserializeUntyped(canViewRecordCheck);
-            system.assertEquals(false, canViewRecordCheckMap.get('success'), 'We do have the correct permissions');
+            Assert.areEqual(false, canViewRecordCheckMap.get('success'), 'We do have the correct permissions');
             List<String> statusList = HelpMessageController.getStatusList(user.Id);
-            system.assertEquals(1, statusList.size(), 'We do have the correct permissions');
+            Assert.areEqual(1, statusList.size(), 'We do have the correct permissions');
         }
     }
 }

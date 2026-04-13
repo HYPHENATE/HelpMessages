@@ -1,24 +1,20 @@
 /**
- * @description       : Controller for the in record help message component
- *                      will return dynamically messages driven by the type of record and filters on the record
- * @author            : daniel@hyphen8.com
- * @last modified on  : 31/05/2023
- * @last modified by  : daniel@hyphen8.com
- * Modifications Log
- * Ver      Date            Author                  Modification
- * 1.0      04/03/2022      daniel@hyphen8.com      Initial Version
+* @description       : Controller for the in record help message component
+*                      will return dynamically messages driven by the type of record and filters on the record
+* @author            : daniel@hyphen8.com
+* @last modified on  : 13-04-2026
+* @last modified by  : daniel@hyphen8.com
 **/
 public with sharing class HelpMessageController {
 
     public static Set<String> filterFields = new Set<String>();
    
     /**
-     * @description     method that will support the handling of publishing and unpublishing actions
-     * @param           recordId
-     * @param           status 
-     * @return          string 
-    */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
+    * @description     method that will support the handling of publishing and unpublishing actions
+    * @param           recordId
+    * @param           status
+    * @return          string
+    **/
     @AuraEnabled
     public static String changeMessageStatus(string recordId, string status){
         String returnmessage;
@@ -27,15 +23,14 @@ public with sharing class HelpMessageController {
             Help_Message__c helpmessage = [SELECT ID, Status__c 
                                                     FROM Help_Message__c 
                                                     WHERE ID=:recordId
+                                                    WITH USER_MODE
                                                     LIMIT 1];
             helpmessage.Status__c = status;
-            update helpmessage;
+            update as user helpmessage;
             returnmessage = 'You have successfully changed the status';
         
         } catch(Exception e) {
-        
             returnmessage = 'We encountered an error > ' + e.getMessage();
-        
         }
 
         JSONGenerator gen = JSON.createGenerator(true);
@@ -46,19 +41,20 @@ public with sharing class HelpMessageController {
     }
 
     /**
-     * @description     method to confirm if the current user is a member of the editor permission set
-     * @return          boolean
-    */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
+    * @description     method to confirm if the current user is a member of the editor permission set
+    * @return          boolean
+    **/
     @AuraEnabled
     public static String canViewRecordActions(){
         ID userID = UserInfo.getUserId();
         Boolean returnValue;
         String message = '';
         try {
-            ID helpMessageEditorPermissionSet = [SELECT PermissionSetId 
+            Id helpMessageEditorPermissionSet = [SELECT PermissionSetId 
                                                             FROM PermissionSetAssignment 
-                                                            WHERE PermissionSet.Name = 'Help_Message_Editor' AND AssigneeId=:UserId].PermissionSetId;
+                                                            WHERE PermissionSet.Name = 'Help_Message_Editor' 
+                                                            AND AssigneeId=:UserId
+                                                            WITH SYSTEM_MODE].PermissionSetId;
             returnvalue = true;
         } catch (Exception e){
             system.debug(e.getMessage());
@@ -76,17 +72,18 @@ public with sharing class HelpMessageController {
 
 
     /**
-     * @description     simple help to confirm what statuses we should be looking for based on the current user access the help messages
-     * @param           userId string 
-     * @return          List<String>
-    */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
+    * @description     simple help to confirm what statuses we should be looking for based on the current user access the help messages
+    * @param           userId 
+    * @return          List<String>
+    **/
     public static List<String> getStatusList(string userId){
         List<String> returnlist;
         try {
-            ID helpmessageeditorpermissionset = [SELECT PermissionSetId 
+            Id helpmessageeditorpermissionset = [SELECT PermissionSetId 
                                                         FROM PermissionSetAssignment 
-                                                        WHERE PermissionSet.Name = 'Help_Message_Editor' AND AssigneeId=:UserId].PermissionSetId;
+                                                        WHERE PermissionSet.Name = 'Help_Message_Editor' 
+                                                        AND AssigneeId=:UserId
+                                                        WITH SYSTEM_MODE].PermissionSetId;
             returnlist = new List<String>{'Draft','Published'};
         } catch (Exception e){
             returnlist = new List<String>{'Published'};
@@ -95,11 +92,10 @@ public with sharing class HelpMessageController {
     }
 
     /**
-     * @description     getHelpMessages Aura method used for pulling in the messages to display based on the recordID we are on
-     * @param           recordId
-     * @return          List<Help_Message__c>
-    */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
+    * @description     getHelpMessages Aura method used for pulling in the messages to display based on the recordID we are on
+    * @param           recordId
+    * @return          List<Help_Message__c>
+    **/
     @AuraEnabled
     public static String getHelpMessages(Id recordId){
         List<String> statuslist = HelpMessageController.getStatusList(UserInfo.getUserId());
@@ -113,6 +109,7 @@ public with sharing class HelpMessageController {
                                                                     ORDER BY CreatedDate) 
                                         FROM Help_Message__c 
                                         WHERE Record_SObjectType__c=:sObjectType AND Status__c IN:statuslist 
+                                        WITH USER_MODE
                                         ORDER BY Order__c ASC]) {
             if(rm.Records_Valid_For__c == 'All') {
                 results.add(rm);

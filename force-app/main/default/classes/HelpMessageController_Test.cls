@@ -262,4 +262,15 @@ public with sharing class HelpMessageController_Test {
             Assert.areEqual(1, statusList.size(), 'We do have the correct permissions');
         }
     }
+
+    /**
+     * @description Executes get Current User For Run As.
+     * @return User result.
+    **/
+    public static User getCurrentUserForRunAs() {
+        return [SELECT Id
+                        FROM User
+                        WHERE Id = :UserInfo.getUserId()
+                        LIMIT 1];
+    }
 }

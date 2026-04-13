@@ -8,6 +8,8 @@
 public with sharing class HelpMessageController {
 
     public static Set<String> filterFields = new Set<String>();
+    private static List<Help_Message__c> results = new List<Help_Message__c>();
+    private static List<Help_Message__c> withFilters = new List<Help_Message__c>();
    
     /**
     * @description     method that will support the handling of publishing and unpublishing actions
@@ -100,10 +102,8 @@ public with sharing class HelpMessageController {
     public static String getHelpMessages(Id recordId){
         List<String> statuslist = HelpMessageController.getStatusList(UserInfo.getUserId());
         filterFields.add('Id');
-        List<Help_Message__c> results = new List<Help_Message__c>();
-        List<Help_Message__c> withFilters = new List<Help_Message__c>();
         String sObjectType = recordId.getSobjectType().getDescribe().getName();
-        for(Help_Message__c rm : [SELECT Id, Name, Is_Draft__c, Message_Title__c, Message__c, Records_Valid_For__c, Filter_Type__c, Custom_Filter_Logic__c, Status__c, 
+        for(Help_Message__c rm : [SELECT Id, Order__c, Name, Is_Draft__c, Message_Title__c, Message__c, Records_Valid_For__c, Filter_Type__c, Custom_Filter_Logic__c, Status__c, 
                                         (SELECT Id, Name, Type__c, Field_Name__c, Field_Operator__c, Field_Value__c 
                                                                     FROM Help_Message_Filters__r 
                                                                     ORDER BY CreatedDate) 
@@ -123,19 +123,20 @@ public with sharing class HelpMessageController {
             List<Help_Message__c> filtererlist = HelpMessageHelper.getHelpFilterMessages(withFilters, sObjectType, recordId);
             results.addAll(filtererlist);
         }
+        return generateResponse(sObjectType);
+    }
 
+    private static String generateResponse(String sObjectType){
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
             gen.writeFieldName('fieldArray');
             gen.writeStartArray();
             for(String field:filterFields){
-
                 gen.writeStartObject();
                     gen.writeStringField('fieldAPIName', sObjectType + '.' + field);
                 gen.writeEndObject();
             }
             gen.writeEndArray();
-            // gen.writeObjectField('fieldArray', filterFields);
             gen.writeFieldName('messages');
             gen.writeStartArray();
                 for(Help_Message__c helpMessage:results){
@@ -144,7 +145,7 @@ public with sharing class HelpMessageController {
                         gen.writeStringField('title', null != helpMessage.Message_Title__c ? helpMessage.Message_Title__c : '');
                         gen.writeStringField('message', null != helpMessage.Message__c ? helpMessage.Message__c : '');
                         gen.writeBooleanField('isDraft', helpMessage.Is_Draft__c);
-
+                        gen.writeNumberField('order', null != helpMessage.Order__c ? helpMessage.Order__c : 0);
                     gen.writeEndObject();
                 }
             gen.writeEndArray();
